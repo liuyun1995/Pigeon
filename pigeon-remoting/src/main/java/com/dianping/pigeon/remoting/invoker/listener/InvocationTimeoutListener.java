@@ -1,11 +1,6 @@
-/**
- * Dianping.com Inc.
- * Copyright (c) 2003-2013 All Rights Reserved.
- */
 package com.dianping.pigeon.remoting.invoker.listener;
 
 import java.util.Map;
-
 import com.dianping.pigeon.config.ConfigManagerLoader;
 import com.dianping.pigeon.log.Logger;
 import com.dianping.pigeon.log.LoggerLoader;
@@ -14,6 +9,7 @@ import com.dianping.pigeon.remoting.invoker.concurrent.Callback;
 import com.dianping.pigeon.remoting.invoker.domain.RemoteInvocationBean;
 import com.dianping.pigeon.remoting.invoker.route.statistics.ServiceStatisticsHolder;
 
+//调用超时监听器
 public class InvocationTimeoutListener implements Runnable {
 
 	private static final Logger logger = LoggerLoader.getLogger(InvocationTimeoutListener.class);

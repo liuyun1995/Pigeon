@@ -1,7 +1,3 @@
-/**
- * Dianping.com Inc.
- * Copyright (c) 2003-2013 All Rights Reserved.
- */
 package com.dianping.pigeon.remoting.invoker.listener;
 
 import com.dianping.pigeon.config.ConfigManager;
@@ -18,9 +14,7 @@ import com.dianping.pigeon.remoting.invoker.route.quality.RequestQualityManager;
 import com.dianping.pigeon.threadpool.DefaultThreadFactory;
 import com.dianping.pigeon.util.CollectionUtils;
 import com.dianping.pigeon.util.ThreadPoolUtils;
-
 import com.dianping.pigeon.log.Logger;
-
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map.Entry;
@@ -29,6 +23,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
+//默认集群监听器
 public class DefaultClusterListener implements ClusterListener {
 
     private static final Logger logger = LoggerLoader.getLogger(DefaultClusterListener.class);

@@ -30,30 +30,38 @@ import com.dianping.pigeon.util.ClassUtils;
 import com.dianping.pigeon.util.NetUtils;
 import com.dianping.pigeon.util.VersionUtils;
 
+//服务提供者引导器
 public final class ProviderBootStrap {
 
-    private static Logger logger = LoggerLoader.getLogger(ServicePublisher.class);
-    static Server httpServer = null;
-    static volatile Map<String, Server> serversMap = new HashMap<String, Server>();
-    static volatile boolean isInitialized = false;
-    static Date startTime = new Date();
+    private static Logger logger = LoggerLoader.getLogger(ServicePublisher.class);     //日志类
+    static Server httpServer = null;                                                   //HTTP服务类
+    static volatile Map<String, Server> serversMap = new HashMap<String, Server>();    //服务类映射
+    static volatile boolean isInitialized = false;                                     //是否已经实例化
+    static Date startTime = new Date();                                                //开始时间
 
+    //获取开始时间
     public static Date getStartTime() {
         return startTime;
     }
 
+    //初始化方法
     public static void init() {
         if (!isInitialized) {
             synchronized (ProviderBootStrap.class) {
                 if (!isInitialized) {
+                    //初始化服务处理器工厂
                     ProviderProcessHandlerFactory.init();
+                    //初始化序列化工厂
                     SerializerFactory.init();
                     ClassUtils.loadClasses("com.dianping.pigeon");
+                    //开启服务关闭监控线程
                     Thread shutdownHook = new Thread(new ShutdownHookListener());
                     shutdownHook.setDaemon(true);
                     shutdownHook.setPriority(Thread.MAX_PRIORITY);
                     Runtime.getRuntime().addShutdownHook(shutdownHook);
+                    //新建服务配置器
                     ServerConfig config = new ServerConfig();
+                    //设置HTTP代理方式
                     config.setProtocol(Constants.PROTOCOL_HTTP);
                     RegistryManager.getInstance();
                     List<Server> servers = ExtensionLoader.getExtensionList(Server.class);
@@ -76,6 +84,7 @@ public final class ProviderBootStrap {
         }
     }
 
+    //服务开启方法
     public static ServerConfig startup(ProviderConfig<?> providerConfig) {
         ServerConfig serverConfig = providerConfig.getServerConfig();
         if (serverConfig == null) {
@@ -109,6 +118,7 @@ public final class ProviderBootStrap {
         }
     }
 
+    //服务关闭方法
     public static void shutdown() {
         for (Server server : serversMap.values()) {
             if (server != null) {

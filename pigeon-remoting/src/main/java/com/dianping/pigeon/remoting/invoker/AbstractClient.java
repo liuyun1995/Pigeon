@@ -61,6 +61,7 @@ public abstract class AbstractClient implements Client {
 
     public abstract void doClose();
 
+    //写入请求
     @Override
     public InvocationResponse write(InvocationRequest request) throws NetworkException {
         ServiceStatisticsHolder.flowIn(request, this.getAddress());

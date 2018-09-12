@@ -1,12 +1,11 @@
 package com.dianping.pigeon.remoting.invoker.domain;
 
 import java.io.Serializable;
-
 import org.apache.commons.lang.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
-
 import com.dianping.pigeon.remoting.common.domain.InvocationRequest;
 
+//RPC调用信息
 public class RpcInvokeInfo implements Serializable {
 
 	private static final long serialVersionUID = 3425539738406083559L;

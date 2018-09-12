@@ -65,6 +65,7 @@ public class ReferenceBeanDefinitionParser implements BeanDefinitionParser {
 		}
 		beanDefinition.setBeanClass(ReferenceBean.class);
 		beanDefinition.setInitMethodName("init");
+		//启动调用者引导程序
 		InvokerBootStrap.startup();
 
 		MutablePropertyValues properties = beanDefinition.getPropertyValues();

@@ -1,7 +1,3 @@
-/**
- * Dianping.com Inc.
- * Copyright (c) 2003-2013 All Rights Reserved.
- */
 package com.dianping.pigeon.remoting.invoker;
 
 import com.dianping.pigeon.log.Logger;
@@ -16,6 +12,7 @@ import com.dianping.pigeon.remoting.invoker.route.region.RegionPolicyManager;
 import com.dianping.pigeon.remoting.invoker.service.ServiceInvocationRepository;
 import com.dianping.pigeon.util.VersionUtils;
 
+//调用者引导程序
 public final class InvokerBootStrap {
 
 	private static final Logger logger = LoggerLoader.getLogger(InvokerBootStrap.class);

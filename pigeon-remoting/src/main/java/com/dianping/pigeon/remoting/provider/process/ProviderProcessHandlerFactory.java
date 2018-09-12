@@ -26,10 +26,13 @@ public final class ProviderProcessHandlerFactory {
 
 	private static final Logger logger = LoggerLoader.getLogger(ProviderProcessHandlerFactory.class);
 
+	//业务处理过滤器
 	private static List<ServiceInvocationFilter<ProviderContext>> bizProcessFilters = new LinkedList<ServiceInvocationFilter<ProviderContext>>();
 
+	//心跳检测过滤器
 	private static List<ServiceInvocationFilter<ProviderContext>> heartBeatProcessFilters = new LinkedList<ServiceInvocationFilter<ProviderContext>>();
 
+	//健康检测过滤器
 	private static List<ServiceInvocationFilter<ProviderContext>> healthCheckProcessFilters = new LinkedList<ServiceInvocationFilter<ProviderContext>>();
 
 	private static List<ServiceInvocationFilter<ProviderContext>> scannerHeartBeatProcessFilters = new LinkedList<ServiceInvocationFilter<ProviderContext>>();
@@ -42,6 +45,7 @@ public final class ProviderProcessHandlerFactory {
 
 	private static ServiceInvocationHandler scannerHeartBeatInvocationHandler = null;
 
+	//根据消息类型获取处理者
 	public static ServiceInvocationHandler selectInvocationHandler(int messageType) {
 		if (Constants.MESSAGE_TYPE_HEART == messageType) {
 			return heartBeatInvocationHandler;

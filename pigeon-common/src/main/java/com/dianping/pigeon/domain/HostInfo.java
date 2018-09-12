@@ -1,17 +1,10 @@
-/**
- * Dianping.com Inc.
- * Copyright (c) 2003-2013 All Rights Reserved.
- */
 package com.dianping.pigeon.domain;
 
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-/**
- * 
- * 
- */
+//主机信息接口
 public class HostInfo {
 
 	private String connect;

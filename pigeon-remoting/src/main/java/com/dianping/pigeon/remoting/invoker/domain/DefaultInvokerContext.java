@@ -1,16 +1,12 @@
-/**
- * Dianping.com Inc.
- * Copyright (c) 2003-2013 All Rights Reserved.
- */
 package com.dianping.pigeon.remoting.invoker.domain;
 
 import org.apache.commons.lang.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
-
 import com.dianping.pigeon.remoting.common.domain.AbstractInvocationContext;
 import com.dianping.pigeon.remoting.invoker.Client;
 import com.dianping.pigeon.remoting.invoker.config.InvokerConfig;
 
+//默认调用者上下文
 public class DefaultInvokerContext extends AbstractInvocationContext implements InvokerContext {
 
     private InvokerConfig<?> invokerConfig;

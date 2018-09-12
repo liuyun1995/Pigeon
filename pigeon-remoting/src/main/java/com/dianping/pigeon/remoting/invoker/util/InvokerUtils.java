@@ -31,6 +31,7 @@ public class InvokerUtils {
 
     private static final Logger logger = LoggerLoader.getLogger(InvokerUtils.class);
 
+    //发送请求
     public static InvocationResponse sendRequest(Client client, InvocationRequest request, Callback callback) {
         if (request.getCallType() == Constants.CALLTYPE_REPLY) {
             RemoteInvocationBean invocationBean = new RemoteInvocationBean();
@@ -42,6 +43,7 @@ public class InvokerUtils {
         }
         InvocationResponse response = null;
         try {
+            //客户端写入请求
             response = client.write(request);
         } catch (NetworkException e) {
             invocationRepository.remove(request.getSequence());

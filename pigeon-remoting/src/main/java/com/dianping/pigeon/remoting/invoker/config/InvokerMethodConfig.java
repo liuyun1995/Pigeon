@@ -1,15 +1,10 @@
-/**
- *
- */
 package com.dianping.pigeon.remoting.invoker.config;
 
 import com.dianping.pigeon.remoting.common.domain.CallMethod;
 import org.apache.commons.lang.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 
-/**
- * @author xiangwu
- */
+//调用者方法配置
 public class InvokerMethodConfig {
 
     private String name;

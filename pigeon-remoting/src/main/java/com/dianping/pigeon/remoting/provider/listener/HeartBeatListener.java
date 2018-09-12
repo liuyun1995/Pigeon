@@ -4,7 +4,6 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
-
 import com.dianping.pigeon.config.ConfigChangeListener;
 import com.dianping.pigeon.config.ConfigManager;
 import com.dianping.pigeon.config.ConfigManagerLoader;

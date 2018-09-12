@@ -1,7 +1,3 @@
-/**
- * WS  * Dianping.com Inc.
- * Copyright (c) 2003-2013 All Rights Reserved.
- */
 package com.dianping.pigeon.remoting.invoker.listener;
 
 import com.dianping.pigeon.config.ConfigManager;
@@ -19,12 +15,12 @@ import com.dianping.pigeon.util.VersionUtils;
 import org.apache.commons.lang.StringUtils;
 import com.dianping.pigeon.log.Logger;
 import org.springframework.util.CollectionUtils;
-
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+//服务是否可用监听器
 public class ProviderAvailableListener implements Runnable {
 
 	private static final Logger logger = LoggerLoader.getLogger(ProviderAvailableListener.class);

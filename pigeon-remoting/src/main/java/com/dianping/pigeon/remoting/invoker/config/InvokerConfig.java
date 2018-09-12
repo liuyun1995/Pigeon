@@ -1,11 +1,6 @@
-/**
- * Dianping.com Inc.
- * Copyright (c) 2003-2013 All Rights Reserved.
- */
 package com.dianping.pigeon.remoting.invoker.config;
 
 import java.util.Map;
-
 import com.dianping.pigeon.remoting.common.codec.SerializerType;
 import com.dianping.pigeon.remoting.common.domain.CallMethod;
 import org.apache.commons.lang.StringUtils;
@@ -13,7 +8,6 @@ import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
-
 import com.dianping.pigeon.config.ConfigManager;
 import com.dianping.pigeon.config.ConfigManagerLoader;
 import com.dianping.pigeon.log.Logger;
