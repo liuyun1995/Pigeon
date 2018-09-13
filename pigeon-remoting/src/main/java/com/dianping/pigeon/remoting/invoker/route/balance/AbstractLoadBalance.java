@@ -34,7 +34,9 @@ public abstract class AbstractLoadBalance implements LoadBalance {
 	@Override
 	public Client select(List<Client> clients, InvokerConfig<?> invokerConfig, InvocationRequest request) {
 		Client selectedClient = null;
+		//获取强制指定的地址
 		String forceAddress = InvokerHelper.getAddress();
+		//若强制指定地址不为空
 		if (StringUtils.isNotBlank(forceAddress)) {
 			// 客户端强制路由
 			if (forceAddress.startsWith("localhost") || forceAddress.startsWith("127.0.0.1")) {
@@ -45,8 +47,11 @@ public abstract class AbstractLoadBalance implements LoadBalance {
 
 			// 拿到未经region或其他策略过滤的client列表
 			List<Client> allClients = ClientManager.getInstance().getClusterListener().getClientList(invokerConfig);
+			//遍历所有客户端
 			for (Client client : allClients) {
+				//找出地址为forceAddress的客户端
 				if (forceAddress.equals(client.getAddress())) {
+					//直接返回该客户端
 					selectedClient = client;
 					break;
 				}
@@ -56,16 +61,19 @@ public abstract class AbstractLoadBalance implements LoadBalance {
 						+ "] is not in available providers of service:" + request.getServiceName()
 						+ ", available providers:" + allClients);
 			}
+		//若强制指定的地址为空
 		} else {
 			if (clients == null || clients.isEmpty()) {
 				return null;
 			}
 			try {
+				//调用子类方法选择一个客户端
 				selectedClient = doSelect(clients, invokerConfig, request,
 						getWeights(clients, request));
 			} catch (Throwable e) {
 				logger.error("failed to do load balance[" + getClass().getName() + "], detail: " + e.getMessage()
 						+ ", use random instead.", e);
+				//如果报错了就随机选择一个
 				selectedClient = clients.get(random.nextInt(clients.size()));
 			}
 		}
@@ -106,6 +114,7 @@ public abstract class AbstractLoadBalance implements LoadBalance {
 		return weights;
 	}
 
+	//选择客户端
 	protected abstract Client doSelect(List<Client> clients, InvokerConfig<?> invokerConfig, InvocationRequest request,
 			int[] weights);
 

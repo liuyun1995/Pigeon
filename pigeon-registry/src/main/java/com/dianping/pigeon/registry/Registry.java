@@ -2,10 +2,10 @@ package com.dianping.pigeon.registry;
 
 import java.util.List;
 import java.util.Map;
-
 import com.dianping.pigeon.registry.config.RegistryConfig;
 import com.dianping.pigeon.registry.exception.RegistryException;
 
+//注册器接口
 public interface Registry {
 
     void init();

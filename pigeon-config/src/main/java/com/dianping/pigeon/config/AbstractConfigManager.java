@@ -336,6 +336,7 @@ public abstract class AbstractConfigManager implements ConfigManager {
 		return value;
 	}
 
+	//获取本地IP地址
 	public String getLocalIp() {
 		String value = null;
 		try {

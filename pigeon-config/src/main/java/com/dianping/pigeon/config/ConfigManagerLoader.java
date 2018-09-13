@@ -6,6 +6,7 @@ import com.dianping.pigeon.log.Log4j2Logger;
 import com.dianping.pigeon.log.Logger;
 import com.dianping.pigeon.log.LoggerLoader;
 
+//配置管理器加载器
 public class ConfigManagerLoader {
 
 	private static ConfigManager configManager = ExtensionLoader.getExtension(ConfigManager.class);
@@ -13,6 +14,7 @@ public class ConfigManagerLoader {
 	private static final String KEY_LOG_DEBUG_ENABLE = "pigeon.log.debug.enable";
 
 	static {
+		//默认使用配置文件配置管理器
 		if (configManager == null) {
 			configManager = new PropertiesFileConfigManager();
 		}
@@ -53,7 +55,9 @@ public class ConfigManagerLoader {
 
 	}
 
+	//获取配置管理器
 	public static ConfigManager getConfigManager() {
 		return configManager;
 	}
+
 }

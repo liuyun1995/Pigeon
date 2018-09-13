@@ -52,7 +52,9 @@ public class DefaultClusterListener implements ClusterListener {
         return serviceClients;
     }
 
+    //根据调用配置获取客户端列表
     public List<Client> getClientList(InvokerConfig<?> invokerConfig) {
+        //根据URL获取客户端列表
         List<Client> clientList = this.serviceClients.get(invokerConfig.getUrl());
         if (CollectionUtils.isEmpty(clientList)) {
             throw new ServiceUnavailableException("no available provider for service:" + invokerConfig.getUrl()
@@ -69,16 +71,22 @@ public class DefaultClusterListener implements ClusterListener {
         return clientList;
     }
 
+    //添加连接
     @Override
     public void addConnect(ConnectInfo connectInfo, String serviceName) {
         if (logger.isInfoEnabled()) {
             logger.info("[cluster-listener] add service provider:" + connectInfo);
         }
+        //根据连接信息获取客户端
         Client client = this.allClients.get(connectInfo.getConnect());
+        //如果客户端已存在
         if (clientExisted(connectInfo)) {
             if (client != null) {
+                //遍历所有服务者的客户端列表
                 for (List<Client> clientList : serviceClients.values()) {
+                    //找出客户端在列表中的位置
                     int idx = clientList.indexOf(client);
+                    //若指向的不是同一个客户端，则关闭该客户端
                     if (idx >= 0 && clientList.get(idx) != client) {
                         closeClientInFuture(client);
                     }
@@ -107,10 +115,14 @@ public class DefaultClusterListener implements ClusterListener {
                 logger.info("client already connected:" + client);
             }
 
+            //遍历所有服务提供者
             for (Entry<String, Integer> sw : connectInfo.getServiceNames().entrySet()) {
+                //获取服务提供者名称
                 String _serviceName = sw.getKey();
                 RegistryEventListener.serverInfoChanged(_serviceName, connectInfo.getConnect());
+                //根据名称获取客户端列表
                 List<Client> clientList = this.serviceClients.get(_serviceName);
+                //若列表为空，则创建新的列表
                 if (clientList == null) {
                     clientList = new CopyOnWriteArrayList<Client>();
                     List<Client> oldClientList = this.serviceClients.putIfAbsent(_serviceName, clientList);
@@ -118,6 +130,7 @@ public class DefaultClusterListener implements ClusterListener {
                         clientList = oldClientList;
                     }
                 }
+                //若列表不包含客户端，则将其添加进列表中
                 if (!clientList.contains(client)) {
                     clientList.add(client);
                 }
@@ -127,9 +140,13 @@ public class DefaultClusterListener implements ClusterListener {
         }
     }
 
+    //判断客户端是否已存在
     private boolean clientExisted(ConnectInfo connectInfo) {
+        //遍历所有服务名称
         for (String serviceName : connectInfo.getServiceNames().keySet()) {
+            //根据服务名称获取客户端列表
             List<Client> clientList = serviceClients.get(serviceName);
+            //若列表不为空，则遍历所有客户端，检查连接信息是否相同
             if (clientList != null) {
                 for (Client client : clientList) {
                     if (client != null && client.getAddress().equals(connectInfo.getConnect())) {

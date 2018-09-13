@@ -45,6 +45,7 @@ public final class SerializerFactory {
         if (!isInitialized) {
             synchronized (SerializerFactory.class) {
                 if (!isInitialized) {
+                    //注册各种序列化器
                     registerSerializer(SerializerType.JAVA, new JavaSerializer());
                     registerSerializer(SerializerType.HESSIAN, new HessianSerializer());
                     registerSerializer(SerializerType.HESSIAN1, new Hessian1Serializer());
@@ -126,8 +127,11 @@ public final class SerializerFactory {
         }
     }
 
+    //获取序列化器
     public static Serializer getSerializer(byte serializerType) {
+        //根据序列化类型获取序列化器
         Serializer serializer = serializers.get(serializerType);
+        //如果不存在序列化器，则抛出异常
         if (serializer == null) {
             throw new IllegalArgumentException("no serializer found for type:" + serializerType);
         } else {

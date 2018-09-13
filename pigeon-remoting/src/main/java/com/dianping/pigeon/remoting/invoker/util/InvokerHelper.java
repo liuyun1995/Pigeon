@@ -61,7 +61,9 @@ public final class InvokerHelper {
 	}
 
 	public static String getAddress() {
+		//获取当前线程的地址
 		String address = tlAddress.get();
+		//返回之前将地址移除
 		tlAddress.remove();
 		return address;
 	}

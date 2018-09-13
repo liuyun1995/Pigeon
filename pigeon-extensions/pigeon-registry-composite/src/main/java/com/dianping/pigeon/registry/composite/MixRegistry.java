@@ -147,12 +147,15 @@ public class MixRegistry implements Registry {
 
     @Override
     public int getServerWeight(String serverAddress, String serviceName) throws RegistryException {
+        //获取注册器
         Registry _registry = registrys.get(MixUtils.getMixReadPrefer());
+
         if (_registry != null && !Constants.REGISTRY_MIX_NAME.equals(_registry.getName())) {
             return _registry.getServerWeight(serverAddress, serviceName);
         }
-
+        //设置默认权重
         int weight = Constants.DEFAULT_WEIGHT;
+        //获取服务是否激活
         Boolean serverActive = MixUtils.getMachineActives().get(serverAddress);
 
         if (Boolean.TRUE.equals(serverActive)) {

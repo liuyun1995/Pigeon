@@ -1,7 +1,3 @@
-/**
- * Dianping.com Inc.
- * Copyright (c) 2003-2013 All Rights Reserved.
- */
 package com.dianping.pigeon.remoting.invoker;
 
 import com.dianping.pigeon.config.ConfigManager;
@@ -29,7 +25,6 @@ import com.dianping.pigeon.threadpool.DefaultThreadPool;
 import com.dianping.pigeon.threadpool.ThreadPool;
 import com.dianping.pigeon.util.ThreadPoolUtils;
 import org.apache.commons.lang.StringUtils;
-
 import java.util.*;
 import java.util.concurrent.*;
 import java.util.concurrent.ThreadPoolExecutor.CallerRunsPolicy;
@@ -62,10 +57,12 @@ public class ClientManager {
 	private static int registerPoolQueueSize = ConfigManagerLoader.getConfigManager()
 			.getIntValue("pigeon.invoker.registerpool.queuesize", 50);
 
+	//注册器线程池
 	private static ThreadPool registerThreadPool = new DefaultThreadPool("Pigeon-Client-Register-Pool",
 			registerPoolCoreSize, registerPoolMaxSize, new LinkedBlockingQueue<Runnable>(registerPoolQueueSize),
 			new CallerRunsPolicy());
 
+	//客户端管理器实例
 	private static ClientManager instance = new ClientManager();
 
 	private RegistryConnectionListener registryConnectionListener = new InnerRegistryConnectionListener();
@@ -93,26 +90,36 @@ public class ClientManager {
 		registerThreadPool.getExecutor().allowCoreThreadTimeOut(true);
 	}
 
+	//注册客户端
 	public void registerClient(String serviceName, String host, int port, int weight) {
+		//新建连接信息
 		ConnectInfo connectInfo = new ConnectInfo(serviceName, host, port, weight);
+		//添加连接信息
 		this.clusterListenerManager.addConnect(connectInfo, serviceName);
+		//添加服务地址
 		RegistryManager.getInstance().addServiceAddress(serviceName, host, port, weight);
 	}
 
+	//获取客户端
 	public Client getClient(InvokerConfig<?> invokerConfig, InvocationRequest request, List<Client> excludeClients) {
+		//从集群监听器中获取客户端列表
 		List<Client> clientList = clusterListener.getClientList(invokerConfig);
 		List<Client> clientsToRoute = new ArrayList<Client>(clientList);
+		//移除要排除的客户端
 		if (excludeClients != null) {
 			clientsToRoute.removeAll(excludeClients);
 		}
+		//从客户端列表中选择一个客户端
 		return routerManager.route(clientsToRoute, invokerConfig, request);
 	}
 
 	public List<Client> getAvailableClients(InvokerConfig<?> invokerConfig, InvocationRequest request) {
+		//获取客户端列表
 		List<Client> clientList = clusterListener.getClientList(invokerConfig);
 		return routerManager.getAvailableClients(clientList, invokerConfig, request);
 	}
 
+	//销毁方法
 	public void destroy() throws Exception {
 		if (clusterListenerManager instanceof Disposable) {
 			((Disposable) clusterListenerManager).destroy();
@@ -127,29 +134,43 @@ public class ClientManager {
 		this.clusterListener.destroy();
 	}
 
+	//获取服务地址
 	public String getServiceAddress(InvokerConfig invokerConfig) {
+		//获取remoteAppkey
 		String remoteAppkey = invokerConfig.getRemoteAppKey();
+		//获取url
 		String serviceName = invokerConfig.getUrl();
+		//获取group
 		String group = RegistryManager.getInstance().getGroup(serviceName);
+		//获取vip
 		String vip = invokerConfig.getVip();
 
 		String serviceAddress = null;
 		boolean useVip = false;
+		//若vip不为空
 		if (StringUtils.isNotBlank(vip)) {
+			//是否开启vip
 			if (enableVip) {
 				useVip = true;
 			}
+			//若vip以console:开头
 			if (vip.startsWith("console:")) {
 				useVip = true;
+				//换成本地主机地址
 				vip = vip.replaceAll("console", configManager.getLocalIp());
 			}
 		}
 		try {
+			//若使用vip
 			if (useVip) {
+				//将服务地址设为vip地址
 				serviceAddress = vip;
+			//若	remoteAppkey不为空
 			} else if (StringUtils.isNotBlank(remoteAppkey)) {
+				//根据remoteAppkey获取服务地址
 				serviceAddress = RegistryManager.getInstance().getServiceAddress(remoteAppkey, serviceName, group);
 			} else {
+				//根据url获取服务地址
 				serviceAddress = RegistryManager.getInstance().getServiceAddress(serviceName, group);
 			}
 		} catch (Throwable e) {
@@ -171,40 +192,56 @@ public class ClientManager {
 		return serviceAddress;
 	}
 
+	//注册客户端
 	public Set<HostInfo> registerClients(InvokerConfig invokerConfig) {
+		//获取remoteAppkey
 		String remoteAppkey = invokerConfig.getRemoteAppKey();
+		//获取url
 		String serviceName = invokerConfig.getUrl();
+		//获取group
 		String group = RegistryManager.getInstance().getGroup(serviceName);
+		//获取vip
 		String vip = invokerConfig.getVip();
 
 		logger.info("start to register clients for service '" + serviceName + "#" + group + "'");
 		String localHost = null;
+		//若vip不为空，且以console:开头
 		if (vip != null && vip.startsWith("console:")) {
+			//获取本机地址
 			localHost = configManager.getLocalIp() + vip.substring(vip.indexOf(":"));
 		}
+		//获取服务地址，若使用vip则返回vip地址
 		String serviceAddress = getServiceAddress(invokerConfig);
+		//获取地址数组
 		String[] addressArray = serviceAddress.split(",");
 		Set<HostInfo> addresses = Collections.newSetFromMap(new ConcurrentHashMap<HostInfo, Boolean>());
+		//遍历服务提供者地址数组
 		for (int i = 0; i < addressArray.length; i++) {
 			if (StringUtils.isNotBlank(addressArray[i])) {
-				// addressList.add(addressArray[i]);
+				//获取一个地址
 				String address = addressArray[i];
 				int idx = address.lastIndexOf(":");
 				if (idx != -1) {
 					String host = null;
 					int port = -1;
 					try {
+						//获取主机ip
 						host = address.substring(0, idx);
+						//获取端口地址
 						port = Integer.parseInt(address.substring(idx + 1));
 					} catch (RuntimeException e) {
 						logger.warn("invalid address:" + address + " for service:" + serviceName);
 					}
+					//若主机端口都存在
 					if (host != null && port > 0) {
+						//若为本机ip端口，则跳过
 						if (localHost != null && !localHost.equals(host + ":" + port)) {
 							continue;
 						}
 						try {
+							//获取服务提供者机器的权重
 							int weight = RegistryManager.getInstance().getServiceWeight(address, serviceName, false);
+							//添加到地址信息列表
 							addresses.add(new HostInfo(host, port, weight));
 						} catch (Throwable e) {
 							logger.error("error while registering service invoker:" + serviceName + ", address:"
@@ -220,16 +257,17 @@ public class ClientManager {
 		}
 		final String url = serviceName;
 		long start = System.nanoTime();
+		//如果允许并发注册
 		if (enableRegisterConcurrently) {
 			final CountDownLatch latch = new CountDownLatch(addresses.size());
+			//遍历主机地址信息
 			for (final HostInfo hostInfo : addresses) {
 				Runnable r = new Runnable() {
 
 					@Override
 					public void run() {
 						try {
-							RegistryEventListener.providerAdded(url, hostInfo.getHost(), hostInfo.getPort(),
-									hostInfo.getWeight());
+							RegistryEventListener.providerAdded(url, hostInfo.getHost(), hostInfo.getPort(), hostInfo.getWeight());
 							RegistryEventListener.serverInfoChanged(url, hostInfo.getConnect());
 						} catch (Throwable t) {
 							logger.error("failed to add provider client:" + hostInfo, t);
@@ -247,7 +285,9 @@ public class ClientManager {
 				logger.info("", e);
 			}
 		} else {
+			//遍历主机地址信息
 			for (final HostInfo hostInfo : addresses) {
+				//添加服务提供者
 				RegistryEventListener.providerAdded(url, hostInfo.getHost(), hostInfo.getPort(), hostInfo.getWeight());
 				RegistryEventListener.serverInfoChanged(url, hostInfo.getConnect());
 			}
@@ -269,22 +309,25 @@ public class ClientManager {
 		return clusterListener;
 	}
 
+	//服务提供者改变监听器
 	class InnerServiceProviderChangeListener implements ServiceProviderChangeListener {
+		//添加服务提供者
 		@Override
 		public void providerAdded(ServiceProviderChangeEvent event) {
 			if (logger.isInfoEnabled()) {
 				logger.info("add " + event.getHost() + ":" + event.getPort() + ":" + event.getWeight() + " to "
 						+ event.getServiceName());
 			}
+			//注册客户端
 			registerClient(event.getServiceName(), event.getHost(), event.getPort(), event.getWeight());
 		}
-
+		//移除服务提供者
 		@Override
 		public void providerRemoved(ServiceProviderChangeEvent event) {
 			HostInfo hostInfo = new HostInfo(event.getHost(), event.getPort(), event.getWeight());
 			RegistryManager.getInstance().removeServiceAddress(event.getServiceName(), hostInfo);
 		}
-
+		//主机权重改变
 		@Override
 		public void hostWeightChanged(ServiceProviderChangeEvent event) {
 		}

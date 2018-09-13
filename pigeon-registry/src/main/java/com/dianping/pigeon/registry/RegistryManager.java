@@ -99,6 +99,7 @@ public class RegistryManager {
 				for (Registry registry : _registryList) {
 					if (registry.getName().equals(customizedRegistryName)) {
 						registry.init();
+						//设置注册器
 						RegistryManager.registry = registry;
 						logger.info(registry.getName() + " registry started.");
 					}
@@ -147,7 +148,7 @@ public class RegistryManager {
 		return Utils.getAddressList(serviceName, serviceAddress);
 	}
 
-	// invoker
+	//获取服务提供者地址
 	public String getServiceAddress(String remoteAppkey, String serviceName, String group) throws RegistryException {
 		String serviceKey = getServiceKey(serviceName, group);
 		if (enableLocalConfig) {
@@ -222,7 +223,9 @@ public class RegistryManager {
 
 	// invoker
 	public int getServiceWeight(String serverAddress, String serviceName, boolean readCache) {
+		//是否读取缓存
 		if (readCache) {
+			//获取主机信息
 			HostInfo hostInfo = referencedAddresses.get(serverAddress);
 			if (hostInfo != null) {
 				return hostInfo.getWeight();

@@ -15,35 +15,36 @@ import com.google.common.collect.Interner;
 import com.google.common.collect.Interners;
 import org.apache.commons.lang.StringUtils;
 import com.dianping.pigeon.log.Logger;
-
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-/**
- * Created by chenchongze on 15/12/17.
- */
+//抽象服务代理
 public abstract class AbstractServiceProxy implements ServiceProxy {
 
-    protected final static Map<InvokerConfig<?>, Object> services = new ConcurrentHashMap<InvokerConfig<?>, Object>();
     protected Logger logger = LoggerLoader.getLogger(this.getClass());
+
+    //服务提供者对象映射
+    protected final static Map<InvokerConfig<?>, Object> services = new ConcurrentHashMap<InvokerConfig<?>, Object>();
 
     private static final Interner<InvokerConfig<?>> interner = Interners.newWeakInterner();
 
     private final RegionPolicyManager regionPolicyManager = RegionPolicyManager.INSTANCE;
 
     @Override
-    public void init() {
+    public void init() {}
 
-    }
-
+    //获取代理对象
     @Override
     public <T> T getProxy(InvokerConfig<T> invokerConfig) {
+        //如果服务提供者接口为空，则抛出异常
         if (invokerConfig.getServiceInterface() == null) {
             throw new IllegalArgumentException("service interface is required");
         }
+        //若服务提供者的url为空，根据接口名称获取url
         if (StringUtils.isBlank(invokerConfig.getUrl())) {
             invokerConfig.setUrl(ServiceFactory.getServiceUrl(invokerConfig));
         }
+        //如果网络协议不为空
         if (!StringUtils.isBlank(invokerConfig.getProtocol())
                 && !invokerConfig.getProtocol().equalsIgnoreCase(Constants.PROTOCOL_DEFAULT)) {
             String protocolPrefix = "@" + invokerConfig.getProtocol().toUpperCase() + "@";
@@ -51,16 +52,20 @@ public abstract class AbstractServiceProxy implements ServiceProxy {
                 invokerConfig.setUrl(protocolPrefix + invokerConfig.getUrl());
             }
         }
+        //从缓存中获取服务代理对象
         Object service = null;
         service = services.get(invokerConfig);
+        //若服务代理对象为空
         if (service == null) {
             synchronized (interner.intern(invokerConfig)) {
                 service = services.get(invokerConfig);
                 if (service == null) {
                     try {
+                        //启动调用者引导程序
                         InvokerBootStrap.startup();
-
+                        //获取提供者代理对象
                         service = SerializerFactory.getSerializer(invokerConfig.getSerialize()).proxyRequest(invokerConfig);
+                        //若负载均衡策略不为空，则注册负载均衡策略
                         if (StringUtils.isNotBlank(invokerConfig.getLoadbalance())) {
                             LoadBalanceManager.register(invokerConfig.getUrl(), invokerConfig.getSuffix(),
                                     invokerConfig.getLoadbalance());

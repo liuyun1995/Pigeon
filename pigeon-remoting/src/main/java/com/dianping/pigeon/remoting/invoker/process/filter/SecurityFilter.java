@@ -1,13 +1,7 @@
-/**
- * Dianping.com Inc.
- * Copyright (c) 2003-2013 All Rights Reserved.
- */
 package com.dianping.pigeon.remoting.invoker.process.filter;
 
 import java.util.concurrent.ConcurrentHashMap;
-
 import org.apache.commons.lang.StringUtils;
-
 import com.dianping.pigeon.config.ConfigChangeListener;
 import com.dianping.pigeon.config.ConfigManager;
 import com.dianping.pigeon.config.ConfigManagerLoader;
@@ -25,9 +19,7 @@ import com.dianping.pigeon.remoting.common.util.SecurityUtils;
 import com.dianping.pigeon.remoting.invoker.config.InvokerConfig;
 import com.dianping.pigeon.remoting.invoker.domain.InvokerContext;
 
-/**
- * @author xiangwu
- */
+//安全过滤器
 public class SecurityFilter extends InvocationInvokeFilter {
 
     private static final Logger logger = LoggerLoader.getLogger(SecurityFilter.class);
@@ -127,6 +119,7 @@ public class SecurityFilter extends InvocationInvokeFilter {
                 transferSecretValueToRequest(request, secret);
             }
         }
+        //调用下一个处理器
         return handler.handle(invocationContext);
     }
 

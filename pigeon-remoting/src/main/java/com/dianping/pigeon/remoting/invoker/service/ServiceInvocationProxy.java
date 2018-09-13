@@ -1,12 +1,7 @@
-/**
- * Dianping.com Inc.
- * Copyright (c) 2003-2013 All Rights Reserved.
- */
 package com.dianping.pigeon.remoting.invoker.service;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
-
 import com.dianping.pigeon.log.Logger;
 import com.dianping.pigeon.log.LoggerLoader;
 import com.dianping.pigeon.remoting.common.domain.InvocationResponse;
@@ -17,17 +12,20 @@ import com.dianping.pigeon.remoting.invoker.config.InvokerConfig;
 import com.dianping.pigeon.remoting.invoker.domain.DefaultInvokerContext;
 import com.dianping.pigeon.remoting.invoker.util.InvokerUtils;
 
+//服务调用代理类
 public class ServiceInvocationProxy implements InvocationHandler {
 
 	private static final Logger logger = LoggerLoader.getLogger(ServiceInvocationProxy.class);
-	private InvokerConfig<?> invokerConfig;
-	private ServiceInvocationHandler handler;
+	private InvokerConfig<?> invokerConfig;     //调用配置
+	private ServiceInvocationHandler handler;   //服务调用处理器
 
+	//构造器
 	public ServiceInvocationProxy(InvokerConfig<?> invokerConfig, ServiceInvocationHandler handler) {
 		this.invokerConfig = invokerConfig;
 		this.handler = handler;
 	}
 
+	//调用方法
 	public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 		String methodName = method.getName();
 		Class<?>[] parameterTypes = method.getParameterTypes();
@@ -43,15 +41,22 @@ public class ServiceInvocationProxy implements InvocationHandler {
 		if ("equals".equals(methodName) && parameterTypes.length == 1) {
 			return handler.equals(args[0]);
 		}
+		//新建调用上下文，使用调用处理器进行调用，此后会执行一连串过滤器
 		return extractResult(handler.handle(new DefaultInvokerContext(invokerConfig, methodName, parameterTypes, args)),
 				method.getReturnType());
 	}
 
+	//检验响应对象
 	public Object extractResult(InvocationResponse response, Class<?> returnType) throws Throwable {
+		//获取响应返回对象
 		Object responseReturn = response.getReturn();
+		//若响应返回对象不为空
 		if (responseReturn != null) {
+			//获取消息类型
 			int messageType = response.getMessageType();
+			//若是服务正确返回消息
 			if (messageType == Constants.MESSAGE_TYPE_SERVICE) {
+				//则直接返回该对象
 				return responseReturn;
 			} else if (messageType == Constants.MESSAGE_TYPE_EXCEPTION) {
 				throw InvokerUtils.toRpcException(response);

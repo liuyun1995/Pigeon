@@ -41,6 +41,7 @@ public class ClusterListenerManager implements Disposable {
         RegistryEventListener.addListener(providerChangeListener);
     }
 
+    //添加连接信息
     public void addConnect(ConnectInfo cmd, String serviceName) {
         ConnectInfo connectInfo = this.connectInfoMap.get(cmd.getConnect());
         if (connectInfo == null) {
@@ -59,6 +60,7 @@ public class ClusterListenerManager implements Disposable {
                 cmd.addServiceNames(connectInfo.getServiceNames());
             }
         }
+        //遍历监听者，添加连接信息
         for (ClusterListener listener : listeners) {
             listener.addConnect(cmd, serviceName);
         }

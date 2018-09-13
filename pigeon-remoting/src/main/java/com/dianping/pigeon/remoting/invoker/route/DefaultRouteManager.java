@@ -1,7 +1,3 @@
-/**
- * Dianping.com Inc.
- * Copyright (c) 2003-2013 All Rights Reserved.
- */
 package com.dianping.pigeon.remoting.invoker.route;
 
 import com.dianping.pigeon.config.ConfigChangeListener;
@@ -28,12 +24,12 @@ import com.dianping.pigeon.remoting.invoker.route.quality.RequestQualityManager;
 import com.dianping.pigeon.remoting.invoker.route.region.RegionPolicyManager;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.util.CollectionUtils;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+//默认路由管理器
 public class DefaultRouteManager implements RouteManager, Disposable {
 
     private static final Logger logger = LoggerLoader.getLogger(DefaultRouteManager.class);
@@ -94,6 +90,7 @@ public class DefaultRouteManager implements RouteManager, Disposable {
         }
     }
 
+    //路由方法
     public Client route(List<Client> clientList, InvokerConfig<?> invokerConfig, InvocationRequest request) {
         if (logger.isDebugEnabled()) {
             for (Client client : clientList) {
@@ -102,18 +99,24 @@ public class DefaultRouteManager implements RouteManager, Disposable {
                 }
             }
         }
+        //获取可用的客户端列表
         List<Client> availableClients = getAvailableClients(clientList, invokerConfig, request);
+        //从可用客户端列表中选取一个客户端
         Client selectedClient = select(availableClients, invokerConfig, request);
 
+        //如果选取的客户端不是活跃的
         while (!selectedClient.isActive()) {
             logger.info("[route] remove client:" + selectedClient);
+            //从可用客户端列表移除该客户端
             availableClients.remove(selectedClient);
+            //如果客户端列表为空，则跳出循环
             if (availableClients.isEmpty()) {
                 break;
             }
+            //重新选取一个客户端
             selectedClient = select(availableClients, invokerConfig, request);
         }
-
+        //最后返回前再校验客户端是否是活跃的
         if (!selectedClient.isActive()) {
             throw new ServiceUnavailableException("no available server exists for service[" + invokerConfig + "], env:"
                     + ConfigManagerLoader.getConfigManager().getEnv());
@@ -122,7 +125,7 @@ public class DefaultRouteManager implements RouteManager, Disposable {
     }
 
     /**
-     * 按照权重、分组、region规则过滤客户端选择 加入对oneway调用模式的优化判断
+     * 按照权重、分组、region规则过滤客户端选择，加入对oneway调用模式的优化判断
      *
      * @param clientList
      * @param invokerConfig
@@ -141,8 +144,11 @@ public class DefaultRouteManager implements RouteManager, Disposable {
         List<Client> filteredClients = new ArrayList<Client>(clientList.size());
         for (Client client : clientList) {
             if (client != null) {
+                //获取客户端地址
                 String address = client.getAddress();
+                //获取客户端权重
                 int weight = RegistryManager.getInstance().getServiceWeightFromCache(address);
+                //如果客户端是活跃的且权重大于0，则添加到集合中
                 if (client.isActive() && weight > 0) {
                     filteredClients.add(client);
                 } else if (logger.isDebugEnabled()) {
@@ -150,6 +156,7 @@ public class DefaultRouteManager implements RouteManager, Disposable {
                 }
             }
         }
+        //若客户端集合为空，则抛出异常
         if (filteredClients.isEmpty()) {
             throw new ServiceUnavailableException("no available server exists for service[" + invokerConfig.getUrl()
                     + "] and group[" + RegistryManager.getInstance().getGroup(invokerConfig.getUrl()) + "].");
@@ -164,24 +171,29 @@ public class DefaultRouteManager implements RouteManager, Disposable {
         }
     }
 
+    //从可用列表中选取客户端
     private Client select(List<Client> availableClients, InvokerConfig<?> invokerConfig, InvocationRequest request) {
         LoadBalance loadBalance = null;
         if (loadBalance == null) {
+            //根据调用类型获取路由器
             loadBalance = LoadBalanceManager.getLoadBalance(invokerConfig, request.getCallType());
         }
         if (loadBalance == null) {
+            //获取按权重路由器
             loadBalance = WeightedAutoawareLoadBalance.instance;
             if (request.getCallType() == Constants.CALLTYPE_NOREPLY) {
+                //获取随机路由器
                 loadBalance = RandomLoadBalance.instance;
             }
         }
 
-        // 判断是否有动态配置的loadbalance
+        //判断是否有动态配置的loadbalance
         LoadBalance dynamicLoadBalance = getDynamicLoadBalance(request);
         if (dynamicLoadBalance != null) {
             loadBalance = dynamicLoadBalance;
         }
 
+        //获取配置的意向客户端列表
         List<Client> preferClients = null;
         if (enablePreferAddresses) {
             if (availableClients != null && availableClients.size() > 1 && !CollectionUtils.isEmpty(preferAddresses)) {
@@ -198,9 +210,11 @@ public class DefaultRouteManager implements RouteManager, Disposable {
                 }
             }
         }
+        //如果意向客户端为空，则直接使用可用客户端列表
         if (preferClients == null || preferClients.size() == 0) {
             preferClients = availableClients;
         }
+        //调用负载均衡器的选择方法
         Client selectedClient = loadBalance.select(preferClients, invokerConfig, request);
         checkClientNotNull(selectedClient, invokerConfig);
 

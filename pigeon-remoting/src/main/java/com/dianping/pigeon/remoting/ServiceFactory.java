@@ -1,17 +1,11 @@
-/**
- * Dianping.com Inc.
- * Copyright (c) 2003-2013 All Rights Reserved.
- */
 package com.dianping.pigeon.remoting;
 
 import java.util.List;
 import java.util.Map;
-
 import com.dianping.pigeon.remoting.provider.publish.PublishPolicy;
 import com.dianping.pigeon.remoting.provider.publish.PublishPolicyLoader;
 import com.dianping.pigeon.util.ThriftUtils;
 import org.apache.commons.lang.StringUtils;
-
 import com.dianping.pigeon.log.Logger;
 import com.dianping.pigeon.log.LoggerLoader;
 import com.dianping.pigeon.registry.exception.RegistryException;
@@ -27,11 +21,7 @@ import com.dianping.pigeon.remoting.provider.config.ServerConfig;
 import com.dianping.pigeon.remoting.provider.publish.ServiceOnlineTask;
 import com.dianping.pigeon.remoting.provider.publish.ServicePublisher;
 
-/**
- * @author xiangwu
- * @Sep 30, 2013
- * 
- */
+//服务工厂
 public class ServiceFactory {
 
 	private static Logger logger = LoggerLoader.getLogger(ServiceFactory.class);
@@ -40,6 +30,7 @@ public class ServiceFactory {
 
 	static {
 		try {
+			//初始化服务提供者引导程序
 			ProviderBootStrap.init();
 		} catch (Throwable t) {
 			logger.error("error while initializing service factory:", t);
@@ -47,46 +38,57 @@ public class ServiceFactory {
 		}
 	}
 
+	//获取全部服务调用者
 	public static Map<InvokerConfig<?>, Object> getAllServiceInvokers() {
 		return serviceProxy.getAllServiceInvokers();
 	}
 
+	//获取全部服务提供者
 	public static Map<String, ProviderConfig<?>> getAllServiceProviders() {
 		return ServicePublisher.getAllServiceProviders();
 	}
 
+	//根据服务接口获取url地址
 	public static <T> String getServiceUrl(Class<T> serviceInterface) {
+		//判断是否是Thrift接口
 		if (ThriftUtils.isIDL(serviceInterface)) {
 			return serviceInterface.getEnclosingClass().getName();
 		} else {
+			//如果不是，则直接将接口全限定名作为url
 			return serviceInterface.getName();
 		}
 	}
 
+	//根据调用者配置获取url地址
 	public static <T> String getServiceUrl(InvokerConfig<T> invokerConfig) {
 		return getServiceUrl(invokerConfig.getServiceInterface());
 	}
 
+	//根据提供者配置获取url地址
 	public static <T> String getServiceUrl(ProviderConfig<T> providerConfig) {
 		return getServiceUrl(providerConfig.getServiceInterface());
 	}
 
+	//获取服务提供者
 	public static <T> T getService(Class<T> serviceInterface) throws RpcException {
 		return getService(null, serviceInterface);
 	}
 
+	//获取服务提供者
 	public static <T> T getService(Class<T> serviceInterface, int timeout) throws RpcException {
 		InvokerConfig<T> invokerConfig = new InvokerConfig<T>(serviceInterface);
 		invokerConfig.setTimeout(timeout);
 		return getService(invokerConfig);
 	}
 
+	//获取服务提供者
 	public static <T> T getService(Class<T> serviceInterface, InvocationCallback callback) throws RpcException {
 		InvokerConfig<T> invokerConfig = new InvokerConfig<T>(serviceInterface);
 		invokerConfig.setCallback(callback);
 		return getService(invokerConfig);
 	}
 
+	//获取服务提供者
 	public static <T> T getService(Class<T> serviceInterface, InvocationCallback callback, int timeout)
 			throws RpcException {
 		InvokerConfig<T> invokerConfig = new InvokerConfig<T>(serviceInterface);
@@ -95,21 +97,25 @@ public class ServiceFactory {
 		return getService(invokerConfig);
 	}
 
+	//获取服务提供者
 	public static <T> T getService(String url, Class<T> serviceInterface) throws RpcException {
 		InvokerConfig<T> invokerConfig = new InvokerConfig<T>(url, serviceInterface);
 		return getService(invokerConfig);
 	}
 
+	//获取服务提供者
 	public static <T> T getService(String url, Class<T> serviceInterface, int timeout) throws RpcException {
 		InvokerConfig<T> invokerConfig = new InvokerConfig<T>(url, serviceInterface);
 		invokerConfig.setTimeout(timeout);
 		return getService(invokerConfig);
 	}
 
+	//获取服务提供者
 	public static <T> T getService(String url, Class<T> serviceInterface, InvocationCallback callback) throws RpcException {
 		return getService(url, serviceInterface, callback, Constants.DEFAULT_INVOKER_TIMEOUT);
 	}
 
+	//获取服务提供者
 	public static <T> T getService(String url, Class<T> serviceInterface, InvocationCallback callback, int timeout)
 			throws RpcException {
 		InvokerConfig<T> invokerConfig = new InvokerConfig<T>(url, serviceInterface);
@@ -118,15 +124,18 @@ public class ServiceFactory {
 		return getService(invokerConfig);
 	}
 
+	//获取服务提供者
 	public static <T> T getService(InvokerConfig<T> invokerConfig) throws RpcException {
 		return serviceProxy.getProxy(invokerConfig);
 	}
 
+	//启动服务
 	public static void startupServer(ServerConfig serverConfig) throws RpcException {
 		// ProviderBootStrap.setServerConfig(serverConfig);
 		// ProviderBootStrap.startup(serverConfig);
 	}
 
+	//关闭服务
 	public static void shutdownServer() throws RpcException {
 		ProviderBootStrap.shutdown();
 	}

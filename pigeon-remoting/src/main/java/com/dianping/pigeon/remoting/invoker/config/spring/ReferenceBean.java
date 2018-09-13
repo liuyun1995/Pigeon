@@ -1,20 +1,14 @@
-/**
- * Dianping.com Inc.
- * Copyright (c) 2003-2013 All Rights Reserved.
- */
 package com.dianping.pigeon.remoting.invoker.config.spring;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import com.dianping.pigeon.remoting.common.codec.SerializerType;
 import com.dianping.pigeon.remoting.common.domain.CallMethod;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 import org.springframework.beans.factory.FactoryBean;
-
 import com.dianping.pigeon.config.ConfigManager;
 import com.dianping.pigeon.config.ConfigManagerLoader;
 import com.dianping.pigeon.log.Logger;
@@ -30,6 +24,7 @@ import com.dianping.pigeon.remoting.invoker.route.region.RegionPolicyManager;
 import com.dianping.pigeon.util.ClassUtils;
 import com.dianping.pigeon.util.CollectionUtils;
 
+//引用Bean，在spring配置文件对其进行配置
 public class ReferenceBean implements FactoryBean {
 
     private ConfigManager configManager = ConfigManagerLoader.getConfigManager();
@@ -261,6 +256,7 @@ public class ReferenceBean implements FactoryBean {
         this.remoteAppKey = remoteAppKey;
     }
 
+    //初始化方法
     public void init() throws Exception {
         if (StringUtils.isBlank(interfaceName)) {
             throw new IllegalArgumentException("invalid interface:" + interfaceName);
