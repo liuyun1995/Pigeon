@@ -1,10 +1,8 @@
 package com.dianping.pigeon.registry.composite;
 
 import java.util.*;
-
 import com.dianping.pigeon.registry.config.RegistryConfig;
 import org.apache.commons.lang.StringUtils;
-
 import com.dianping.pigeon.config.ConfigChangeListener;
 import com.dianping.pigeon.config.ConfigManager;
 import com.dianping.pigeon.config.ConfigManagerLoader;
@@ -19,9 +17,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 
-/**
- * Created by chenchongze on 16/8/15.
- */
+//混合注册中心
 @Deprecated
 public class CompositeRegistry implements Registry {
 
@@ -41,11 +37,13 @@ public class CompositeRegistry implements Registry {
             synchronized (this) {
                 if (!inited) {
                     try {
+                        //获取意向注册中心配置，默认是CuratorRegistry
                         String registryPreferConfig = configManager.getStringValue(KEY_PIGEON_REGISTRY_PREFER,
                                 Constants.REGISTRY_CURATOR_NAME);
                         logger.info("composite registry prefer is " + registryPreferConfig);
+                        //解析意向注册中心
                         parseRegistryConfig(registryPreferConfig);
-
+                        //添加注册中心配置改变监听器
                         configManager.registerConfigChangeListener(new InnerConfigChangeListener());
                         inited = true;
                     } catch (Throwable t) {
@@ -62,23 +60,29 @@ public class CompositeRegistry implements Registry {
         return inited;
     }
 
+    //解析注册中心配置
     private void parseRegistryConfig(String registryPreferConfig) {
         List<Registry> _registryList = Lists.newArrayList();
 
+        //通过拓展类加载器，加载所有的Registry实现类
         for (Registry registry : ExtensionLoader.getExtensionList(Registry.class)) {
+            //将注册中心添加到注册中心列表
             if (!registry.getName().equals(this.getName())) {
                 _registryList.add(registry);
             }
         }
 
+        //获取注册中心和名称的映射集合
         Map<String, Registry> registryMapByName = Maps.newHashMap();
         for (Registry registry : _registryList) {
             registryMapByName.put(registry.getName(), registry);
         }
 
+        //获取指定的注册中心名称集合
         List<String> registryPrefer = Arrays.asList(registryPreferConfig.split(","));
         List<Registry> orderedRegistryList = Lists.newArrayList();
 
+        //从注册中心名称映射中挑选出配置的注册中心列表
         for (String registryName : registryPrefer) {
             if (registryMapByName.containsKey(registryName)) {
                 orderedRegistryList.add(registryMapByName.get(registryName));
@@ -90,14 +94,17 @@ public class CompositeRegistry implements Registry {
 
         List<Registry> candidateRegistryList = Lists.newArrayList();
 
+        //遍历配置的注册中心列表
         for (Registry registry : orderedRegistryList) {
+            //初始化注册中心
             registry.init();
-
+            //如果注册中心可用，则添加到可用列表
             if (registry.isEnable()) {
                 candidateRegistryList.add(registry);
             }
         }
 
+        //验证可用注册中心列表是否大于0
         if (candidateRegistryList.size() > 0) {
             registryList = candidateRegistryList;
         } else {
@@ -110,12 +117,14 @@ public class CompositeRegistry implements Registry {
         return Constants.REGISTRY_COMPOSITE_NAME;
     }
 
+    //获取指定服务的所有地址信息
     @Override
     public String getServiceAddress(String serviceName) throws RegistryException {
         String addr = "";
-
+        //遍历注册中心列表
         for (Registry registry : registryList) { // merge registry addr
             try {
+                //获取注册中心中的地址信息
                 addr = mergeAddress(addr, registry.getServiceAddress(serviceName));
             } catch (Throwable t) {
                 logger.info("failed to get service address from registry: " + registry.getName());

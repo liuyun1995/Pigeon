@@ -186,6 +186,7 @@ public final class ServicePublisher {
 		}
 	}
 
+	//推送服务到注册中心
 	private synchronized static <T> void publishServiceToRegistry(String url, String registryUrl, int port, String group, boolean support)
 			throws RegistryException {
 		String ip = configManager.getLocalIp();

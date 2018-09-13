@@ -119,8 +119,10 @@ public abstract class AbstractConfigManager implements ConfigManager {
 		return getPropertyFromLocal(key, String.class);
 	}
 
+	//获取本地属性
 	private <T> T getPropertyFromLocal(String key, Class<T> type) {
 		String strValue = null;
+		//本地缓存是否包含该key
 		if (localCache.containsKey(key)) {
 			Object value = localCache.get(key);
 			if (value == NULL) {

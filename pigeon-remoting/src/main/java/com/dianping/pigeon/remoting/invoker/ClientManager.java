@@ -96,7 +96,7 @@ public class ClientManager {
 		ConnectInfo connectInfo = new ConnectInfo(serviceName, host, port, weight);
 		//添加连接信息
 		this.clusterListenerManager.addConnect(connectInfo, serviceName);
-		//添加服务地址
+		//将该主机信息添加到可用主机列表中
 		RegistryManager.getInstance().addServiceAddress(serviceName, host, port, weight);
 	}
 
@@ -161,16 +161,16 @@ public class ClientManager {
 			}
 		}
 		try {
-			//若使用vip
+			//若使用vip则不从注册中心获取地址
 			if (useVip) {
 				//将服务地址设为vip地址
 				serviceAddress = vip;
-			//若	remoteAppkey不为空
+			//否则从注册中心获取地址
 			} else if (StringUtils.isNotBlank(remoteAppkey)) {
-				//根据remoteAppkey获取服务地址
+				//根据remoteAppkey获取机器地址列表
 				serviceAddress = RegistryManager.getInstance().getServiceAddress(remoteAppkey, serviceName, group);
 			} else {
-				//根据url获取服务地址
+				//根据url配置获取机器地址列表
 				serviceAddress = RegistryManager.getInstance().getServiceAddress(serviceName, group);
 			}
 		} catch (Throwable e) {
@@ -285,9 +285,9 @@ public class ClientManager {
 				logger.info("", e);
 			}
 		} else {
-			//遍历主机地址信息
+			//遍历本次要注册的该服务的所有主机地址信息
 			for (final HostInfo hostInfo : addresses) {
-				//添加服务提供者
+				//调用注册中心事件监听器的providerAdded方法
 				RegistryEventListener.providerAdded(url, hostInfo.getHost(), hostInfo.getPort(), hostInfo.getWeight());
 				RegistryEventListener.serverInfoChanged(url, hostInfo.getConnect());
 			}

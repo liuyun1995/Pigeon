@@ -1,18 +1,12 @@
-/**
- * Dianping.com Inc.
- * Copyright (c) 2003-2013 All Rights Reserved.
- */
 package com.dianping.pigeon.registry;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
-
 import com.dianping.pigeon.registry.config.RegistryConfig;
 import com.dianping.pigeon.registry.config.ServiceConfig;
 import com.google.common.collect.Interner;
 import com.google.common.collect.Interners;
 import org.apache.commons.lang.StringUtils;
-
 import com.dianping.pigeon.config.ConfigChangeListener;
 import com.dianping.pigeon.config.ConfigManager;
 import com.dianping.pigeon.config.ConfigManagerLoader;
@@ -30,7 +24,9 @@ import com.dianping.pigeon.registry.util.HeartBeatSupport;
 import com.dianping.pigeon.registry.util.Utils;
 import com.dianping.pigeon.util.VersionUtils;
 
+//服务提供者注册管理中心
 public class RegistryManager {
+
 	private static final Logger logger = LoggerLoader.getLogger(RegistryManager.class);
 
 	private static volatile boolean isInit = false;
@@ -45,6 +41,7 @@ public class RegistryManager {
 
 	private static final String BLANK_GROUP = "";
 
+	//服务机器列表映射
 	private static ConcurrentHashMap<String, Set<HostInfo>> referencedServiceAddresses = new ConcurrentHashMap<String, Set<HostInfo>>();
 
 	private static ConcurrentHashMap<String, HostInfo> referencedAddresses = new ConcurrentHashMap<String, HostInfo>();
@@ -59,11 +56,9 @@ public class RegistryManager {
 
 	private static final Monitor monitor = MonitorLoader.getMonitor();
 
-	public static final boolean fallbackDefaultGroup = configManager.getBooleanValue("pigeon.registry.group.fallback",
-			true);
+	public static final boolean fallbackDefaultGroup = configManager.getBooleanValue("pigeon.registry.group.fallback", true);
 
-	private static boolean enableLocalConfig = ConfigManagerLoader.getConfigManager()
-			.getBooleanValue("pigeon.registry.config.local", false);
+	private static boolean enableLocalConfig = ConfigManagerLoader.getConfigManager().getBooleanValue("pigeon.registry.config.local", false);
 
 	private RegistryManager() {
 	}
@@ -118,6 +113,7 @@ public class RegistryManager {
 		return registry;
 	}
 
+	//获取所有可用的服务名
 	public Set<String> getReferencedServices() {
 		return referencedServiceAddresses.keySet();
 	}
@@ -139,6 +135,7 @@ public class RegistryManager {
 		return referencedAddresses.get(serverAddress);
 	}
 
+	//判断该服务名是否有机器可用
 	public boolean isReferencedService(String serviceName, String group) {
 		return referencedServiceAddresses.containsKey(serviceName);
 	}
@@ -150,7 +147,9 @@ public class RegistryManager {
 
 	//获取服务提供者地址
 	public String getServiceAddress(String remoteAppkey, String serviceName, String group) throws RegistryException {
+		//获取serviceKey
 		String serviceKey = getServiceKey(serviceName, group);
+		//是否允许本地配置
 		if (enableLocalConfig) {
 			String addr = configManager.getLocalStringValue(Utils.escapeServiceName(serviceKey));
 			if (addr == null) {
@@ -167,7 +166,7 @@ public class RegistryManager {
 				return addr;
 			}
 		}
-
+		//若不允许本地配置，则使用注册中心获取地址
 		if (registry != null) {
 			String addr = registry.getServiceAddress(remoteAppkey, serviceName, group, fallbackDefaultGroup);
 			return addr;
@@ -204,7 +203,9 @@ public class RegistryManager {
 		return "";
 	}
 
+	//获取服务key
 	private String getServiceKey(String serviceName, String group) {
+		//若服务组为空，则直接返回服务名
 		if (StringUtils.isBlank(group)) {
 			return serviceName;
 		} else {
@@ -304,21 +305,28 @@ public class RegistryManager {
 		}
 	}
 
-	// invoker
+	//添加服务提供者机器地址
 	public void addServiceAddress(String serviceName, String host, int port, int weight) {
+		//进行权重验证
 		Utils.validateWeight(host, port, weight);
-
+		//拼接服务提供者机器地址
 		String serviceAddress = host + ":" + port;
+		//根据机器地址获取主机信息
 		HostInfo hostInfo = referencedAddresses.get(serviceAddress);
 		if (hostInfo == null) {
 			synchronized (stringInterner.intern(serviceAddress)) {
 				hostInfo = referencedAddresses.get(serviceAddress);
+				//若不存在对应的主机信息
 				if (hostInfo == null) {
+					//新建主机信息
 					hostInfo = new HostInfo(host, port, weight);
+					//放置服务名和主机信息映射
 					referencedAddresses.put(serviceAddress, hostInfo);
 
+					//若注册中心不为空
 					if (registry != null) {
 						try {
+							//获取app名
 							String app = registry.getServerApp(serviceAddress, serviceName);
 							hostInfo.setApp(app);
 						} catch (RegistryException e) {
@@ -326,6 +334,7 @@ public class RegistryManager {
 						}
 
 						try {
+							//获取服务版本号
 							String version = registry.getServerVersion(serviceAddress, serviceName);
 							hostInfo.setVersion(version);
 						} catch (RegistryException e) {
@@ -333,6 +342,7 @@ public class RegistryManager {
 						}
 
 						try {
+							//获取心跳支持
 							byte heartBeatSupport = registry.getServerHeartBeatSupport(serviceAddress, serviceName);
 							hostInfo.setHeartBeatSupport(heartBeatSupport);
 						} catch (RegistryException e) {
@@ -341,8 +351,8 @@ public class RegistryManager {
 
 						// invoker读取注册中心的协议信息并且put进去
 						try {
-							Map<String, Boolean> serviceProtocols
-									= registry.getServiceProtocols(serviceAddress, serviceName);
+							//获取该服务支持的协议
+							Map<String, Boolean> serviceProtocols = registry.getServiceProtocols(serviceAddress, serviceName);
 							hostInfo.setServiceProtocols(serviceProtocols);
 						} catch (RegistryException e) {
 							logger.info("failed to update service protocols in cache for: " + serviceAddress);
@@ -354,7 +364,9 @@ public class RegistryManager {
 		}
 		hostInfo.addService(serviceName);
 
+		//根据服务名获取已有的主机列表
 		Set<HostInfo> hostInfos = referencedServiceAddresses.get(serviceName);
+		//若已有主机列表为空，则新建可用主机列表
 		if (hostInfos == null) {
 			hostInfos = Collections.newSetFromMap(new ConcurrentHashMap<HostInfo, Boolean>());
 			Set<HostInfo> oldHostInfos = referencedServiceAddresses.putIfAbsent(serviceName, hostInfos);
@@ -362,6 +374,7 @@ public class RegistryManager {
 				hostInfos = oldHostInfos;
 			}
 		}
+		//将该主机信息添加到可用主机列表中
 		hostInfos.add(hostInfo);
 
 	}

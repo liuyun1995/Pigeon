@@ -83,6 +83,7 @@ public abstract class AbstractServiceProxy implements ServiceProxy {
                     }
 
                     try {
+                        //根据配置信息注册服务提供者机器
                         ClientManager.getInstance().registerClients(invokerConfig);
                     } catch (Throwable t) {
                         logger.warn("error while trying to setup service client:" + invokerConfig, t);

@@ -76,6 +76,7 @@ public class DefaultRouteManager implements RouteManager, Disposable {
     }
 
     private DefaultRouteManager() {
+        //添加服务提供者改变事件监听器
         RegistryEventListener.addListener(providerChangeListener);
         if (enablePreferAddresses) {
             preferAddresses = new ArrayList<String>();

@@ -1,17 +1,9 @@
-/**
- * Dianping.com Inc.
- * Copyright (c) 2003-2013 All Rights Reserved.
- */
 package com.dianping.pigeon.config;
 
 import java.util.List;
 import java.util.Properties;
 
-/**
- * @author xiangwu
- * @Sep 22, 2013
- * 
- */
+//配置管理器
 public interface ConfigManager {
 
 	public String getEnv();

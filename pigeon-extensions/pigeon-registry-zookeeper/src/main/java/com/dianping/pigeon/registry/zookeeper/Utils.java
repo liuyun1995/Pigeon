@@ -31,7 +31,9 @@ public class Utils {
     }
 
     public static String getServicePath(String serviceName, String group) {
+        //路径为：/DP/SERVER/com.maoyan.findShowService
         String path = Constants.SERVICE_PATH + Constants.PATH_SEPARATOR + escapeServiceName(serviceName);
+        //获取分组不为空
         if (!StringUtils.isBlank(group)) {
             path = path + Constants.PATH_SEPARATOR + group;
         }

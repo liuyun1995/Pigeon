@@ -1,27 +1,25 @@
 package com.dianping.pigeon.registry.zookeeper;
 
-import java.util.*;
-
-import com.dianping.pigeon.registry.config.RegistryConfig;
-import org.apache.commons.lang.StringUtils;
-import org.apache.zookeeper.KeeperException.BadVersionException;
-import org.apache.zookeeper.KeeperException.NoNodeException;
-import org.apache.zookeeper.KeeperException.NodeExistsException;
-import org.apache.zookeeper.data.Stat;
-
 import com.dianping.pigeon.config.ConfigManager;
 import com.dianping.pigeon.config.ConfigManagerLoader;
 import com.dianping.pigeon.log.Logger;
 import com.dianping.pigeon.log.LoggerLoader;
 import com.dianping.pigeon.registry.Registry;
-import com.dianping.pigeon.registry.RegistryManager;
+import com.dianping.pigeon.registry.config.RegistryConfig;
 import com.dianping.pigeon.registry.exception.RegistryException;
 import com.dianping.pigeon.registry.util.Constants;
 import com.dianping.pigeon.registry.util.HeartBeatSupport;
 import com.dianping.pigeon.util.CollectionUtils;
 import com.dianping.pigeon.util.VersionUtils;
 import com.google.common.collect.ImmutableMap;
+import org.apache.commons.lang.StringUtils;
+import org.apache.zookeeper.KeeperException.BadVersionException;
+import org.apache.zookeeper.KeeperException.NoNodeException;
+import org.apache.zookeeper.KeeperException.NodeExistsException;
+import org.apache.zookeeper.data.Stat;
+import java.util.*;
 
+//Curator注册中心
 public class CuratorRegistry implements Registry {
 
     private static Logger logger = LoggerLoader.getLogger(CuratorRegistry.class);
@@ -64,6 +62,7 @@ public class CuratorRegistry implements Registry {
         return Constants.REGISTRY_CURATOR_NAME;
     }
 
+    //根据服务名获取机器地址
     @Override
     public String getServiceAddress(String serviceName) throws RegistryException {
         return getServiceAddress(serviceName, Constants.DEFAULT_GROUP);
@@ -381,12 +380,16 @@ public class CuratorRegistry implements Registry {
         return "";
     }
 
+    //核心获取机器地址方法
     @Override
     public String getServiceAddress(String serviceName, String group, boolean fallbackDefaultGroup,
                                     boolean needListener) throws RegistryException {
         try {
+            //获取服务路径
             String path = Utils.getServicePath(serviceName, group);
+            //根据路径调用zookeeper客户端获取机器地址
             String address = client.get(path, needListener);
+            //若分组不为空
             if (!StringUtils.isBlank(group)) {
                 boolean needFallback = false;
                 if (!Utils.isValidAddress(address)) {
@@ -398,6 +401,7 @@ public class CuratorRegistry implements Registry {
                     address = client.get(path, needListener);
                 }
             }
+            //返回机器地址列表(已经拼接成字符串)
             return address;
         } catch (Exception e) {
             logger.info("failed to get service address for " + serviceName + "/" + group, e);

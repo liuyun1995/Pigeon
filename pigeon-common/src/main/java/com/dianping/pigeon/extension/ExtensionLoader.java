@@ -56,8 +56,10 @@ public final class ExtensionLoader {
 	}
 
 	public static <T> List<T> newExtensionList(Class<T> clazz) {
+		//加载对应类型的类
 		ServiceLoader<T> serviceLoader = ServiceLoader.load(clazz);
 		List<T> extensions = new ArrayList<T>();
+		//遍历加载出来的所有对象
 		for (T service : serviceLoader) {
 			extensions.add(service);
 		}
