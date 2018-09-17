@@ -1,7 +1,3 @@
-/**
- * Dianping.com Inc.
- * Copyright (c) 2003-2013 All Rights Reserved.
- */
 package com.dianping.pigeon.config;
 
 import java.util.ArrayList;
@@ -10,19 +6,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.ConcurrentHashMap;
-
 import org.apache.commons.lang.StringUtils;
 import com.dianping.pigeon.log.Logger;
-
 import com.dianping.pigeon.log.LoggerLoader;
 import com.dianping.pigeon.util.AppUtils;
 import com.dianping.pigeon.util.NetUtils;
 
-/**
- * @author xiangwu
- * @Sep 22, 2013
- *
- */
+//抽象配置管理中心
 public abstract class AbstractConfigManager implements ConfigManager {
 
 	private static Logger logger = LoggerLoader.getLogger(AbstractConfigManager.class);

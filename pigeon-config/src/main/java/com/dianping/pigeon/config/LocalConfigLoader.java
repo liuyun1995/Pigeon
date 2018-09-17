@@ -5,9 +5,9 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Properties;
-
 import com.dianping.pigeon.util.FileUtils;
 
+//本地配置加载器
 public class LocalConfigLoader {
 
 	private static final String DEV_PROPERTIES_PATH = "config/applicationContext.properties";
