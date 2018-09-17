@@ -1,9 +1,6 @@
 package com.dianping.pigeon.remoting.common.domain;
 
-/**
- * @author qi.yin
- *         2016/11/09  上午11:18.
- */
+//调用方法
 public enum CallMethod {
 
     SYNC((byte) 1, "sync"), CALLBACK((byte) 2, "callback"), FUTURE((byte) 3, "future"), ONEWAY((byte) 4, "oneway");

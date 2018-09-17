@@ -1,9 +1,6 @@
 package com.dianping.pigeon.monitor;
 
-/**
- * @author qi.yin
- *         2016/06/02  下午2:06.
- */
+//监控器常量
 public class MonitorConstants {
 
     public static final String ROOT_MSG_ID = "RootMessageId";
@@ -17,4 +14,5 @@ public class MonitorConstants {
     public static final String TRACE_ID = "traceId";
 
     public static final String DEBUG = "debug";
+
 }

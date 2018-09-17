@@ -1,15 +1,10 @@
 package com.dianping.pigeon.remoting.common.domain;
 
-/**
- * @author qi.yin
- *         2016/11/09  上午11:01.
- */
+//调用类型
 public enum CallType {
     REPLY((byte) 1, "reply"), NOREPLY((byte) 2, "noreply"), MANUAL((byte) 3, "manual");
 
-
     private byte code;
-
     private String name;
 
     private CallType(byte code, String name) {

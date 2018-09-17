@@ -1,9 +1,6 @@
 package com.dianping.pigeon.remoting.common.pool;
 
-/**
- * @author qi.yin
- *         2016/07/21  上午11:09.
- */
+//通道池属性
 public class PoolProperties {
 
     public static final int DEFAULT_INITIAL_SIZE = 1;

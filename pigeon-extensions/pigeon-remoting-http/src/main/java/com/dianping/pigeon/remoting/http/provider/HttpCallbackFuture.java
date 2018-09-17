@@ -1,7 +1,5 @@
 package com.dianping.pigeon.remoting.http.provider;
 
-import java.util.concurrent.TimeUnit;
-
 import com.dianping.pigeon.log.Logger;
 import com.dianping.pigeon.log.LoggerLoader;
 import com.dianping.pigeon.remoting.common.domain.InvocationRequest;
@@ -13,6 +11,7 @@ import com.dianping.pigeon.remoting.invoker.concurrent.Callback;
 import com.dianping.pigeon.remoting.invoker.exception.RequestTimeoutException;
 import com.dianping.pigeon.remoting.provider.domain.ProviderContext;
 import com.dianping.pigeon.remoting.provider.util.ProviderUtils;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by chenchongze on 16/1/13.

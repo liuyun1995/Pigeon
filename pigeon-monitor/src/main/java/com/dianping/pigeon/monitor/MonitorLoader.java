@@ -2,11 +2,10 @@ package com.dianping.pigeon.monitor;
 
 import com.dianping.pigeon.extension.ExtensionLoader;
 import com.dianping.pigeon.log.Logger;
-
 import com.dianping.pigeon.log.LoggerLoader;
-
 import java.util.List;
 
+//监控器加载器
 public class MonitorLoader {
 
     private static final Logger logger = LoggerLoader.getLogger(MonitorLoader.class);

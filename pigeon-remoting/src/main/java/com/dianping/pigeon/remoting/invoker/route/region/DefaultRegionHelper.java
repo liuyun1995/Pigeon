@@ -5,7 +5,6 @@ package com.dianping.pigeon.remoting.invoker.route.region;
  */
 public class DefaultRegionHelper implements RegionHelper {
 
-
     @Override
     public String getLocalIdc() {
         return null;
@@ -15,4 +14,5 @@ public class DefaultRegionHelper implements RegionHelper {
     public boolean isInLocalIdc(String ip) {
         return false;
     }
+
 }

@@ -1,15 +1,4 @@
-/**
- * Dianping.com Inc.
- * Copyright (c) 2003-2013 All Rights Reserved.
- */
 package com.dianping.pigeon.remoting.invoker.route.balance;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.concurrent.ConcurrentHashMap;
-
-import org.apache.commons.lang.StringUtils;
 
 import com.dianping.pigeon.config.ConfigManager;
 import com.dianping.pigeon.config.ConfigManagerLoader;
@@ -32,7 +21,13 @@ import com.dianping.pigeon.threadpool.ThreadPool;
 import com.dianping.pigeon.util.ClassUtils;
 import com.dianping.pigeon.util.ServiceUtils;
 import com.dianping.pigeon.util.ThreadPoolUtils;
+import org.apache.commons.lang.StringUtils;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.concurrent.ConcurrentHashMap;
 
+//负载均衡管理器
 public class LoadBalanceManager {
 
 	private static final Logger logger = LoggerLoader.getLogger(LoadBalanceManager.class);
@@ -69,17 +64,12 @@ public class LoadBalanceManager {
 		LoadBalanceManager.register(WeightedAutoawareLoadBalance.NAME, null, WeightedAutoawareLoadBalance.instance);
 	}
 
+	//获取负载均衡器
 	public static LoadBalance getLoadBalance(String loadBalanceKey) {
 		return loadBalanceMap.get(loadBalanceKey);
 	}
 
-	/**
-	 * 
-	 * 
-	 * @param invokerConfig
-	 * @param callType
-	 * @return
-	 */
+	//获取负载均衡器
 	public static LoadBalance getLoadBalance(InvokerConfig<?> invokerConfig, int callType) {
 		String serviceId = ServiceUtils.getServiceId(invokerConfig.getUrl(), invokerConfig.getSuffix());
 		LoadBalance loadBalance = loadBalanceMap.get(serviceId);

@@ -1,29 +1,22 @@
-/**
- * Dianping.com Inc.
- * Copyright (c) 2003-2013 All Rights Reserved.
- */
 package com.dianping.pigeon.remoting.http.invoker;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.zip.GZIPInputStream;
-
+import com.dianping.pigeon.log.Logger;
+import com.dianping.pigeon.log.LoggerLoader;
+import com.dianping.pigeon.remoting.common.codec.Serializer;
+import com.dianping.pigeon.remoting.common.codec.SerializerFactory;
+import com.dianping.pigeon.remoting.common.domain.InvocationRequest;
+import com.dianping.pigeon.remoting.common.domain.InvocationResponse;
 import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.methods.ByteArrayRequestEntity;
 import org.apache.commons.httpclient.methods.PostMethod;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.zip.GZIPInputStream;
 
-import com.dianping.pigeon.log.LoggerLoader;
-
-import com.dianping.pigeon.log.Logger;
-
-import com.dianping.pigeon.remoting.common.codec.Serializer;
-import com.dianping.pigeon.remoting.common.codec.SerializerFactory;
-import com.dianping.pigeon.remoting.common.domain.InvocationRequest;
-import com.dianping.pigeon.remoting.common.domain.InvocationResponse;
-
+//http调用执行器
 public class HttpInvokerExecutor {
 
 	private static final Logger logger = LoggerLoader.getLogger(HttpInvokerExecutor.class);
@@ -77,14 +70,9 @@ public class HttpInvokerExecutor {
 		this.contentType = contentType;
 	}
 
+	//创建post方法
 	protected PostMethod createPostMethod(String url) throws IOException {
 		PostMethod postMethod = new PostMethod(url);
-//		LocaleContext locale = LocaleContextHolder.getLocaleContext();
-//		if (locale != null) {
-//			Locale l = locale.getLocale();
-//			String lang = l.getLanguage() + (StringUtils.isNotBlank(l.getCountry()) ? "-" + l.getCountry() : "");
-//			postMethod.addRequestHeader(HTTP_HEADER_ACCEPT_LANGUAGE, lang);
-//		}
 		postMethod.addRequestHeader(HTTP_HEADER_ACCEPT_ENCODING, ENCODING_GZIP);
 		return postMethod;
 	}
@@ -95,6 +83,7 @@ public class HttpInvokerExecutor {
 				.contains(ENCODING_GZIP));
 	}
 
+	//获取响应实体
 	protected InputStream getResponseBody(PostMethod postMethod) throws IOException {
 		if (isGzipResponse(postMethod)) {
 			return new GZIPInputStream(postMethod.getResponseBodyAsStream());
@@ -103,11 +92,14 @@ public class HttpInvokerExecutor {
 		}
 	}
 
+	//发送http请求
 	public final InvocationResponse executeRequest(String url, InvocationRequest invocationRequest) throws Exception {
 		byte serialize = invocationRequest.getSerialize();
+		//获取序列化器
 		Serializer serializer = SerializerFactory.getSerializer(serialize);
 		PostMethod postMethod = null;
 		try {
+			//创建post方法
 			postMethod = createPostMethod(url);
 			postMethod.addParameter("serialize", serialize + "");
 			postMethod.addRequestHeader("serialize", serialize + "");
@@ -117,16 +109,20 @@ public class HttpInvokerExecutor {
 				if (logger.isDebugEnabled()) {
 					logger.debug("serialize:" + new String(baos.toByteArray()));
 				}
+				//设置请求实体
 				postMethod.setRequestEntity(new ByteArrayRequestEntity(baos.toByteArray(), this.getContentType()));
 			} finally {
 				baos.close();
 			}
+			//执行post请求
 			httpClient.executeMethod(postMethod);
 			if (postMethod.getStatusCode() >= 300) {
 				throw new HttpException("Did not receive successful HTTP response: status code = "
 						+ postMethod.getStatusCode() + ", status message = [" + postMethod.getStatusText() + "]");
 			}
+			//获取响应实体
 			InputStream responseBody = getResponseBody(postMethod);
+			//执行反序列化
 			return (InvocationResponse) serializer.deserializeResponse(responseBody);
 		} finally {
 			if (postMethod != null) {

@@ -1,23 +1,10 @@
-/**
- * Dianping.com Inc.
- * Copyright (c) 2003-2013 All Rights Reserved.
- */
 package com.dianping.pigeon.remoting.http.provider;
-
-import java.util.List;
-import java.util.Random;
-
-import com.dianping.pigeon.log.LoggerLoader;
-
-import com.dianping.pigeon.log.Logger;
-import org.mortbay.jetty.Server;
-import org.mortbay.jetty.servlet.Context;
-import org.mortbay.jetty.servlet.ServletHolder;
-import org.mortbay.thread.QueuedThreadPool;
 
 import com.dianping.pigeon.config.ConfigManager;
 import com.dianping.pigeon.config.ConfigManagerLoader;
 import com.dianping.pigeon.extension.ExtensionLoader;
+import com.dianping.pigeon.log.Logger;
+import com.dianping.pigeon.log.LoggerLoader;
 import com.dianping.pigeon.remoting.common.domain.Disposable;
 import com.dianping.pigeon.remoting.common.util.Constants;
 import com.dianping.pigeon.remoting.http.HttpUtils;
@@ -25,6 +12,12 @@ import com.dianping.pigeon.remoting.provider.AbstractServer;
 import com.dianping.pigeon.remoting.provider.config.ProviderConfig;
 import com.dianping.pigeon.remoting.provider.config.ServerConfig;
 import com.dianping.pigeon.util.NetUtils;
+import org.mortbay.jetty.Server;
+import org.mortbay.jetty.servlet.Context;
+import org.mortbay.jetty.servlet.ServletHolder;
+import org.mortbay.thread.QueuedThreadPool;
+import java.util.List;
+import java.util.Random;
 
 public class JettyHttpServer extends AbstractServer implements Disposable {
 

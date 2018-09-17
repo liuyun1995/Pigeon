@@ -14,7 +14,6 @@ import com.dianping.pigeon.remoting.provider.publish.ServiceChangeListenerContai
 import com.dianping.pigeon.util.FileUtils;
 import com.dianping.pigeon.util.NetUtils;
 import org.apache.commons.lang.StringUtils;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;

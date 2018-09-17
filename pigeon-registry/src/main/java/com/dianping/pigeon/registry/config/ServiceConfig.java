@@ -2,9 +2,7 @@ package com.dianping.pigeon.registry.config;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-/**
- * Created by chenchongze on 17/1/17.
- */
+//服务配置
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ServiceConfig {
 

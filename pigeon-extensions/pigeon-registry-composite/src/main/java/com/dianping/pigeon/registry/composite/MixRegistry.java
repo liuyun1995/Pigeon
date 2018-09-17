@@ -19,7 +19,6 @@ import com.dianping.pigeon.remoting.provider.publish.ServicePublisher;
 import com.dianping.pigeon.util.VersionUtils;
 import com.google.common.collect.Lists;
 import org.apache.commons.lang.StringUtils;
-
 import java.util.*;
 
 /**

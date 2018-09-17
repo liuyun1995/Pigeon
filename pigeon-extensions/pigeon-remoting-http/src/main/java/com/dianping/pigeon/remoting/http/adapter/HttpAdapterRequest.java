@@ -2,9 +2,7 @@ package com.dianping.pigeon.remoting.http.adapter;
 
 import com.dianping.pigeon.remoting.common.util.Constants;
 
-/**
- * Created by chenchongze on 16/1/8.
- */
+//http适配器请求
 public class HttpAdapterRequest {
 
     private String url;

@@ -4,10 +4,7 @@ import com.dianping.pigeon.config.ConfigChangeListener;
 import com.dianping.pigeon.config.ConfigManager;
 import com.dianping.pigeon.remoting.common.util.Constants;
 
-/**
- * @author qi.yin
- *         2016/11/02  下午1:49.
- */
+//客户端配置
 public class ClientConfig {
 
     private ConfigManager configManager;

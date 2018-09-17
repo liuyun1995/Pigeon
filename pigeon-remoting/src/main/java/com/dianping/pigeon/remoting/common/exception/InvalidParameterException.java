@@ -1,7 +1,3 @@
-/**
- * Dianping.com Inc.
- * Copyright (c) 2003-2013 All Rights Reserved.
- */
 package com.dianping.pigeon.remoting.common.exception;
 
 public class InvalidParameterException extends RpcException {
@@ -30,4 +26,5 @@ public class InvalidParameterException extends RpcException {
 		}
 		return errorCode;
 	}
+
 }

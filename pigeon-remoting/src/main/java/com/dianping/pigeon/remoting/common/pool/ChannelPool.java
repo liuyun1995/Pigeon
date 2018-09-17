@@ -1,13 +1,9 @@
 package com.dianping.pigeon.remoting.common.pool;
 
 import com.dianping.pigeon.remoting.common.channel.Channel;
-
 import java.util.List;
 
-/**
- * @author qi.yin
- *         2016/07/21  上午11:05.
- */
+//通道池接口
 public interface ChannelPool<C extends Channel> {
 
     int getSize();

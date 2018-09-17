@@ -1,11 +1,6 @@
-/**
- * Dianping.com Inc.
- * Copyright (c) 2003-2013 All Rights Reserved.
- */
 package com.dianping.pigeon.remoting.common.domain;
 
 import com.dianping.pigeon.remoting.common.monitor.trace.MonitorData;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -1,13 +1,9 @@
 package com.dianping.pigeon.remoting.common.monitor.trace;
 
-
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
-/**
- * @author qi.yin
- *         2016/11/17  下午3:15.
- */
+//抽象的跟踪注册中心
 public abstract class AbstractTraceRepository<M extends MonitorData, T extends AbstractTraceData> implements TraceRepository<M> {
 
     protected volatile ConcurrentMap<PairKey<SourceKey, DestinationKey>, T> traceDatas =

@@ -1,9 +1,9 @@
 package com.dianping.pigeon.remoting.invoker.cluster;
 
 import java.util.concurrent.ConcurrentHashMap;
-
 import com.dianping.pigeon.remoting.common.util.Constants;
 
+//集群工厂
 public class ClusterFactory {
 
 	private final static ConcurrentHashMap<String, Cluster> clusters = new ConcurrentHashMap<String, Cluster>();
@@ -30,4 +30,5 @@ public class ClusterFactory {
 		}
 		return cluster;
 	}
+
 }

@@ -7,11 +7,7 @@ import com.dianping.pigeon.remoting.netty.codec.CodecEvent;
 import org.jboss.netty.channel.Channel;
 import org.jboss.netty.channel.ChannelHandlerContext;
 import org.jboss.netty.channel.Channels;
-import org.omg.IOP.Codec;
-
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author qi.yin

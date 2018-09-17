@@ -2,13 +2,10 @@ package com.dianping.pigeon.monitor;
 
 import com.dianping.pigeon.log.Logger;
 import com.dianping.pigeon.log.LoggerLoader;
-
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by zhanjun on 2017/4/12.
- */
+//联合监控器
 public class CompositeMonitor implements Monitor {
 
     private static final Logger logger = LoggerLoader.getLogger(CompositeMonitor.class);
@@ -16,7 +13,6 @@ public class CompositeMonitor implements Monitor {
     private List<Monitor> monitorList;
     private ThreadLocal<MonitorTransaction> tlCallTransition = new ThreadLocal<>();
     private ThreadLocal<MonitorTransaction> tlServiceTransition = new ThreadLocal<>();
-
 
     public CompositeMonitor(List<Monitor> monitorList) {
         if (monitorList == null) {

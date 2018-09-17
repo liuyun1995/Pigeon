@@ -1,9 +1,6 @@
 package com.dianping.pigeon.remoting.common.monitor.trace;
 
-/**
- * @author qi.yin
- *         2016/11/20  下午3:29.
- */
+//抽象的监控数据
 public abstract class AbstractMonitorData implements MonitorData {
 
     protected final ApplicationTraceRepository traceData;

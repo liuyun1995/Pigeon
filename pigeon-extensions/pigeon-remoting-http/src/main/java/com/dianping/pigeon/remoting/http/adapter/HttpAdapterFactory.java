@@ -1,17 +1,13 @@
 package com.dianping.pigeon.remoting.http.adapter;
 
+import com.dianping.pigeon.log.Logger;
 import com.dianping.pigeon.log.LoggerLoader;
 import com.dianping.pigeon.remoting.provider.config.ProviderConfig;
 import com.dianping.pigeon.remoting.provider.publish.ServicePublisher;
-
-import com.dianping.pigeon.log.Logger;
-
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by chenchongze on 16/1/20.
- */
+//http适配器工厂
 public class HttpAdapterFactory {
 
     private static Logger logger = LoggerLoader.getLogger(HttpAdapterFactory.class);

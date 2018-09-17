@@ -1,10 +1,9 @@
 package com.dianping.pigeon.remoting.common.channel;
 
-/**
- * @author qi.yin
- *         2016/09/23  上午10:46.
- */
+//通道工厂
 public interface ChannelFactory<C extends Channel> {
 
+    //创建通道
     C createChannel();
+
 }

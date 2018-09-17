@@ -1,10 +1,4 @@
-/**
- * Dianping.com Inc.
- * Copyright (c) 2003-2013 All Rights Reserved.
- */
 package com.dianping.pigeon.remoting.netty.invoker;
-
-import static org.jboss.netty.channel.Channels.pipeline;
 
 import com.dianping.pigeon.remoting.common.codec.CodecConfig;
 import com.dianping.pigeon.remoting.common.codec.CodecConfigFactory;
@@ -12,10 +6,11 @@ import com.dianping.pigeon.remoting.netty.codec.CompressHandler;
 import com.dianping.pigeon.remoting.netty.codec.Crc32Handler;
 import com.dianping.pigeon.remoting.netty.codec.FrameDecoder;
 import com.dianping.pigeon.remoting.netty.codec.FramePrepender;
-import com.dianping.pigeon.remoting.netty.invoker.codec.*;
+import com.dianping.pigeon.remoting.netty.invoker.codec.InvokerDecoder;
+import com.dianping.pigeon.remoting.netty.invoker.codec.InvokerEncoder;
 import org.jboss.netty.channel.ChannelPipeline;
 import org.jboss.netty.channel.ChannelPipelineFactory;
-
+import static org.jboss.netty.channel.Channels.pipeline;
 
 public class NettyClientPipelineFactory implements ChannelPipelineFactory {
 

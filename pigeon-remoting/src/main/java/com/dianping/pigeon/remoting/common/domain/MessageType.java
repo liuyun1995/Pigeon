@@ -1,9 +1,6 @@
 package com.dianping.pigeon.remoting.common.domain;
 
-/**
- * @author qi.yin
- *         2016/11/14  下午7:38.
- */
+//消息类型
 public enum MessageType {
     HEART((byte) 1, "heart"),
 

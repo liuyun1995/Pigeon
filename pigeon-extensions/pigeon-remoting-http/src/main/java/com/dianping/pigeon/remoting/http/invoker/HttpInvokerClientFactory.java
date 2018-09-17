@@ -20,6 +20,7 @@ public class HttpInvokerClientFactory implements ClientFactory {
     //客户端配置
     private final static ClientConfig clientConfig = ClientConfigFactory.createClientConfig(ConfigManagerLoader.getConfigManager());
 
+    //创建客户端
     @Override
     public Client createClient(ConnectInfo connectInfo) {
         return new HttpInvokerClient(clientConfig, connectInfo, responseProcessor);

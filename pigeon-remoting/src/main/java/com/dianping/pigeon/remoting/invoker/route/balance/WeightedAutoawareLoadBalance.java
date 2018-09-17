@@ -1,14 +1,8 @@
-/**
- * Dianping.com Inc.
- * Copyright (c) 2003-2013 All Rights Reserved.
- */
 package com.dianping.pigeon.remoting.invoker.route.balance;
 
 import java.util.List;
 import java.util.Random;
-
 import com.dianping.pigeon.log.Logger;
-
 import com.dianping.pigeon.config.ConfigManagerLoader;
 import com.dianping.pigeon.log.LoggerLoader;
 import com.dianping.pigeon.remoting.common.domain.InvocationRequest;
@@ -17,13 +11,13 @@ import com.dianping.pigeon.remoting.invoker.config.InvokerConfig;
 import com.dianping.pigeon.remoting.invoker.route.statistics.ServiceStatisticsHolder;
 import com.dianping.pigeon.util.LangUtils;
 
+//权重负载均衡器
 public class WeightedAutoawareLoadBalance extends AbstractLoadBalance {
 
     private static final Logger logger = LoggerLoader.getLogger(WeightedAutoawareLoadBalance.class);
     public static final String NAME = "weightedAutoaware";
     public static final LoadBalance instance = new WeightedAutoawareLoadBalance();
-    private static int defaultFactor = ConfigManagerLoader.getConfigManager().getIntValue(
-            "pigeon.loadbalance.defaultFactor", 100);
+    private static int defaultFactor = ConfigManagerLoader.getConfigManager().getIntValue("pigeon.loadbalance.defaultFactor", 100);
     private static Random random = new Random();
 
     @Override

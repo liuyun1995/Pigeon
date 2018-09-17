@@ -1,20 +1,7 @@
-/**
- * Dianping.com Inc.
- * Copyright (c) 2003-2013 All Rights Reserved.
- */
 package com.dianping.pigeon.remoting.http.invoker;
-
-import java.net.ConnectException;
-import java.util.List;
 
 import com.dianping.pigeon.remoting.common.channel.Channel;
 import com.dianping.pigeon.remoting.common.codec.SerializerType;
-import com.dianping.pigeon.remoting.invoker.process.ResponseProcessor;
-import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.HttpConnectionManager;
-import org.apache.commons.httpclient.MultiThreadedHttpConnectionManager;
-import org.apache.commons.httpclient.params.HttpConnectionManagerParams;
-
 import com.dianping.pigeon.remoting.common.domain.InvocationRequest;
 import com.dianping.pigeon.remoting.common.domain.InvocationResponse;
 import com.dianping.pigeon.remoting.common.exception.NetworkException;
@@ -23,7 +10,15 @@ import com.dianping.pigeon.remoting.common.util.InvocationUtils;
 import com.dianping.pigeon.remoting.invoker.AbstractClient;
 import com.dianping.pigeon.remoting.invoker.client.ClientConfig;
 import com.dianping.pigeon.remoting.invoker.domain.ConnectInfo;
+import com.dianping.pigeon.remoting.invoker.process.ResponseProcessor;
+import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.HttpConnectionManager;
+import org.apache.commons.httpclient.MultiThreadedHttpConnectionManager;
+import org.apache.commons.httpclient.params.HttpConnectionManagerParams;
+import java.net.ConnectException;
+import java.util.List;
 
+//http调用客户端
 public class HttpInvokerClient extends AbstractClient {
 
 	private ConnectInfo connectInfo;
@@ -33,6 +28,7 @@ public class HttpInvokerClient extends AbstractClient {
 	private boolean isConnected = false;
 	public static final String CONTENT_TYPE_SERIALIZED_OBJECT = "application/x-java-serialized-object";
 
+	//构造器
 	public HttpInvokerClient(ClientConfig clientConfig, ConnectInfo connectInfo, ResponseProcessor responseProcessor) {
 		super(clientConfig, responseProcessor);
 
@@ -57,11 +53,13 @@ public class HttpInvokerClient extends AbstractClient {
 		httpInvokerExecutor.setHttpClient(httpClient);
 	}
 
+	//获取连接信息
 	@Override
 	public ConnectInfo getConnectInfo() {
 		return connectInfo;
 	}
 
+	//打开连接
 	@Override
 	public void doOpen() {
 		InvocationRequest request = InvocationUtils.newRequest(Constants.HEART_TASK_SERVICE,
@@ -82,11 +80,13 @@ public class HttpInvokerClient extends AbstractClient {
 		}
 	}
 
+	//发送请求
 	@Override
 	public InvocationResponse doWrite(InvocationRequest invocationRequest) throws NetworkException {
 		return write(defaultServiceUrl, invocationRequest);
 	}
 
+	//发送请求
 	public InvocationResponse write(String url, InvocationRequest request) throws NetworkException {
 		final int timeout = request.getTimeout();
 		httpInvokerExecutor.setReadTimeout(timeout);
@@ -102,21 +102,25 @@ public class HttpInvokerClient extends AbstractClient {
 		}
 	}
 
+	//获取主机ip
 	@Override
 	public String getHost() {
 		return connectInfo.getHost();
 	}
 
+	//获取地址信息
 	@Override
 	public String getAddress() {
 		return connectInfo.getHost() + ":" + connectInfo.getPort();
 	}
 
+	//获取端口信息
 	@Override
 	public int getPort() {
 		return connectInfo.getPort();
 	}
 
+	//是否激活
 	@Override
 	public boolean isActive() {
 		return super.isActive() && isConnected;
@@ -150,6 +154,7 @@ public class HttpInvokerClient extends AbstractClient {
 		return getAddress().hashCode();
 	}
 
+	//获取协议
 	@Override
 	public String getProtocol() {
 		return Constants.PROTOCOL_HTTP;

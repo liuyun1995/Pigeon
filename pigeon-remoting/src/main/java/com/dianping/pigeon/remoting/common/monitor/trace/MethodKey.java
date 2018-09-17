@@ -1,9 +1,6 @@
 package com.dianping.pigeon.remoting.common.monitor.trace;
 
-/**
- * @author qi.yin
- *         2016/11/01  下午4:37.
- */
+//方法键
 public class MethodKey implements SourceKey, DestinationKey {
 
     private String serviceName;

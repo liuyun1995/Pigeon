@@ -3,6 +3,7 @@ package com.dianping.pigeon.monitor.simple;
 import com.dianping.pigeon.monitor.Monitor;
 import com.dianping.pigeon.monitor.MonitorTransaction;
 
+//简单监控器
 public class SimpleMonitor implements Monitor {
 
 	@Override

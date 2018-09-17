@@ -1,18 +1,9 @@
-/**
- * Dianping.com Inc.
- * Copyright (c) 2003-2013 All Rights Reserved.
- */
 package com.dianping.pigeon.remoting.common.domain;
 
+import com.dianping.pigeon.remoting.common.util.Constants;
+import com.fasterxml.jackson.annotation.*;
 import java.io.Serializable;
 import java.util.Map;
-
-import com.dianping.pigeon.remoting.common.util.Constants;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "seq", scope = DefaultResponse.class)
 public class DefaultResponse implements InvocationResponse {

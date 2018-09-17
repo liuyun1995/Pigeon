@@ -1,8 +1,6 @@
 package com.dianping.pigeon.registry.util;
 
-/**
- * Created by chenchongze on 16/8/16.
- */
+//心跳支持
 public enum HeartBeatSupport {
 
     NoSupport((byte)0),

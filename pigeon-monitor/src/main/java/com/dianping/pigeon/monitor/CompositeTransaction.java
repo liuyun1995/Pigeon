@@ -2,9 +2,7 @@ package com.dianping.pigeon.monitor;
 
 import java.util.List;
 
-/**
- * Created by zhanjun on 2017/4/12.
- */
+//联合事务
 public class CompositeTransaction implements MonitorTransaction {
 
     private List<MonitorTransaction> monitorTransactionList;

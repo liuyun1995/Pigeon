@@ -9,15 +9,12 @@ import com.dianping.pigeon.remoting.common.domain.InvocationRequest;
 import com.dianping.pigeon.remoting.invoker.Client;
 import com.dianping.pigeon.remoting.invoker.domain.InvokerContext;
 import org.springframework.util.CollectionUtils;
-
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
-/**
- * Created by chenchongze on 16/5/20.
- */
+//请求质量管理器
 public enum RequestQualityManager {
 
     INSTANCE;

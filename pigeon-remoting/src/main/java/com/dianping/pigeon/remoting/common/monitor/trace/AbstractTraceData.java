@@ -2,17 +2,13 @@ package com.dianping.pigeon.remoting.common.monitor.trace;
 
 import com.dianping.pigeon.util.MapUtils;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ConcurrentNavigableMap;
 import java.util.concurrent.ConcurrentSkipListMap;
 import java.util.concurrent.atomic.AtomicLong;
 
-/**
- * @author qi.yin
- *         2016/11/17  下午1:32.
- */
+//抽象的跟踪数据
 public class AbstractTraceData {
 
     private AtomicLong totalCount = new AtomicLong();

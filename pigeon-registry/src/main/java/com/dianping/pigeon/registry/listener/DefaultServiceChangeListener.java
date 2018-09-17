@@ -1,17 +1,16 @@
 package com.dianping.pigeon.registry.listener;
 
+import com.dianping.pigeon.domain.HostInfo;
+import com.dianping.pigeon.log.Logger;
+import com.dianping.pigeon.log.LoggerLoader;
+import com.dianping.pigeon.registry.RegistryManager;
+import com.dianping.pigeon.registry.util.Utils;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
-import com.dianping.pigeon.log.Logger;
-
-import com.dianping.pigeon.domain.HostInfo;
-import com.dianping.pigeon.log.LoggerLoader;
-import com.dianping.pigeon.registry.RegistryManager;
-import com.dianping.pigeon.registry.util.Utils;
-
+//默认服务改变监听器
 public class DefaultServiceChangeListener implements ServiceChangeListener {
 
 	public final static DefaultServiceChangeListener INSTANCE = new DefaultServiceChangeListener();

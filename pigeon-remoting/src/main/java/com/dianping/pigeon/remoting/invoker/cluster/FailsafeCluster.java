@@ -1,7 +1,6 @@
 package com.dianping.pigeon.remoting.invoker.cluster;
 
 import com.dianping.pigeon.log.Logger;
-
 import com.dianping.pigeon.log.LoggerLoader;
 import com.dianping.pigeon.remoting.common.domain.InvocationRequest;
 import com.dianping.pigeon.remoting.common.domain.InvocationResponse;

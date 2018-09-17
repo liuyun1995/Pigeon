@@ -11,7 +11,6 @@ import com.dianping.pigeon.registry.RegistryManager;
 import com.dianping.pigeon.remoting.common.domain.InvocationRequest;
 import com.dianping.pigeon.remoting.invoker.Client;
 import org.apache.commons.lang.StringUtils;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

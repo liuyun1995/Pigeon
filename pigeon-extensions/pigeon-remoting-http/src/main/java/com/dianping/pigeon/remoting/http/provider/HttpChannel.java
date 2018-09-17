@@ -1,27 +1,17 @@
-/**
- * Dianping.com Inc.
- * Copyright (c) 2003-2013 All Rights Reserved.
- */
 package com.dianping.pigeon.remoting.http.provider;
 
-import java.io.IOException;
-import java.net.InetSocketAddress;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import com.dianping.pigeon.remoting.common.util.Constants;
-import com.dianping.pigeon.remoting.provider.domain.ProviderContext;
-import org.apache.commons.lang.SerializationException;
-
-import com.dianping.pigeon.log.LoggerLoader;
-
 import com.dianping.pigeon.log.Logger;
-
+import com.dianping.pigeon.log.LoggerLoader;
 import com.dianping.pigeon.remoting.common.codec.Serializer;
 import com.dianping.pigeon.remoting.common.codec.SerializerFactory;
 import com.dianping.pigeon.remoting.common.domain.InvocationResponse;
+import com.dianping.pigeon.remoting.common.util.Constants;
 import com.dianping.pigeon.remoting.provider.domain.ProviderChannel;
+import com.dianping.pigeon.remoting.provider.domain.ProviderContext;
+import org.apache.commons.lang.SerializationException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 public class HttpChannel implements ProviderChannel {
 

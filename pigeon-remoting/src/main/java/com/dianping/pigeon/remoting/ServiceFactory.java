@@ -140,38 +140,17 @@ public class ServiceFactory {
 		ProviderBootStrap.shutdown();
 	}
 
-	/**
-	 * add the service to pigeon and publish the service to registry
-	 * 
-	 * @param serviceInterface
-	 * @param service
-	 * @throws RpcException
-	 */
+	//添加服务
 	public static <T> void addService(Class<T> serviceInterface, T service) throws RpcException {
 		addService(null, serviceInterface, service, ServerConfig.DEFAULT_PORT);
 	}
 
-	/**
-	 * add the service to pigeon and publish the service to registry
-	 * 
-	 * @param url
-	 * @param serviceInterface
-	 * @param service
-	 * @throws RpcException
-	 */
+	//添加服务
 	public static <T> void addService(String url, Class<T> serviceInterface, T service) throws RpcException {
 		addService(url, serviceInterface, service, ServerConfig.DEFAULT_PORT);
 	}
 
-	/**
-	 * add the service to pigeon and publish the service to registry
-	 * 
-	 * @param url
-	 * @param serviceInterface
-	 * @param service
-	 * @param port
-	 * @throws RpcException
-	 */
+	//添加服务
 	public static <T> void addService(String url, Class<T> serviceInterface, T service, int port) throws RpcException {
 		ProviderConfig<T> providerConfig = new ProviderConfig<T>(serviceInterface, service);
 		providerConfig.setUrl(url);
@@ -179,22 +158,12 @@ public class ServiceFactory {
 		addService(providerConfig);
 	}
 
-	/**
-	 * add the service to pigeon and publish the service to registry
-	 * 
-	 * @param providerConfig
-	 * @throws RpcException
-	 */
+	//添加服务
 	public static <T> void addService(ProviderConfig<T> providerConfig) throws RpcException {
 		publishPolicy.doAddService(providerConfig);
 	}
 
-	/**
-	 * add the services to pigeon and publish these services to registry
-	 * 
-	 * @param providerConfigList
-	 * @throws RpcException
-	 */
+	//添加服务
 	public static void addServices(List<ProviderConfig<?>> providerConfigList) throws RpcException {
 		if (logger.isInfoEnabled()) {
 			logger.info("add services:" + providerConfigList);
@@ -206,12 +175,7 @@ public class ServiceFactory {
 		}
 	}
 
-	/**
-	 * publish the service to registry
-	 * 
-	 * @param providerConfig
-	 * @throws RpcException
-	 */
+	//发布服务到注册中心
 	public static <T> void publishService(ProviderConfig<T> providerConfig) throws RpcException {
 		if (StringUtils.isBlank(providerConfig.getUrl())) {
 			providerConfig.setUrl(getServiceUrl(providerConfig));
@@ -223,12 +187,7 @@ public class ServiceFactory {
 		}
 	}
 
-	/**
-	 * publish the service to registry
-	 * 
-	 * @param url
-	 * @throws RpcException
-	 */
+	//发布服务到注册中心
 	public static <T> void publishService(String url) throws RpcException {
 		try {
 			ServicePublisher.publishService(url);
@@ -237,12 +196,7 @@ public class ServiceFactory {
 		}
 	}
 
-	/**
-	 * unpublish the service from registry
-	 * 
-	 * @param providerConfig
-	 * @throws RpcException
-	 */
+	//取消发布
 	public static <T> void unpublishService(ProviderConfig<T> providerConfig) throws RpcException {
 		try {
 			ServicePublisher.unpublishService(providerConfig);
@@ -251,12 +205,7 @@ public class ServiceFactory {
 		}
 	}
 
-	/**
-	 * unpublish the service from registry
-	 * 
-	 * @param url
-	 * @throws RpcException
-	 */
+	//取消发布
 	public static <T> void unpublishService(String url) throws RpcException {
 		try {
 			ServicePublisher.unpublishService(url);
@@ -265,11 +214,7 @@ public class ServiceFactory {
 		}
 	}
 
-	/**
-	 * unpublish all pigeon services from registry
-	 * 
-	 * @throws RpcException
-	 */
+	//取消发布所有服务
 	public static void unpublishAllServices() throws RpcException {
 		try {
 			ServicePublisher.unpublishAllServices();
@@ -278,11 +223,7 @@ public class ServiceFactory {
 		}
 	}
 
-	/**
-	 * publish all pigeon services to registry
-	 * 
-	 * @throws RpcException
-	 */
+	//发布所有服务
 	public static void publishAllServices() throws RpcException {
 		try {
 			ServicePublisher.publishAllServices();
@@ -291,12 +232,7 @@ public class ServiceFactory {
 		}
 	}
 
-	/**
-	 * remove all pigeon services, including unregister these services from
-	 * registry
-	 * 
-	 * @throws RpcException
-	 */
+	//移除所有服务
 	public static void removeAllServices() throws RpcException {
 		try {
 			ServicePublisher.removeAllServices();
@@ -305,13 +241,7 @@ public class ServiceFactory {
 		}
 	}
 
-	/**
-	 * remove the service from pigeon, including unregister this service from
-	 * registry
-	 * 
-	 * @param url
-	 * @throws RpcException
-	 */
+	//移除所有服务
 	public static void removeService(String url) throws RpcException {
 		try {
 			ServicePublisher.removeService(url);
@@ -320,13 +250,7 @@ public class ServiceFactory {
 		}
 	}
 
-	/**
-	 * remove the service from pigeon, including unregister this service from
-	 * registry
-	 * 
-	 * @param providerConfig
-	 * @throws RpcException
-	 */
+	//移除所有服务
 	public static <T> void removeService(ProviderConfig<T> providerConfig) throws RpcException {
 		removeService(providerConfig.getUrl());
 	}

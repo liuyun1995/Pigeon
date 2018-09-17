@@ -1,34 +1,27 @@
-/**
- * Dianping.com Inc.
- * Copyright (c) 2003-2013 All Rights Reserved.
- */
 package com.dianping.pigeon.remoting.http.provider;
 
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.Future;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import com.dianping.pigeon.extension.ExtensionLoader;
-import com.dianping.pigeon.remoting.common.codec.SerializerType;
-import com.dianping.pigeon.remoting.http.adapter.HttpAdapter;
-import com.dianping.pigeon.remoting.http.adapter.HttpAdapterFactory;
-import org.apache.commons.lang.StringUtils;
-
 import com.dianping.pigeon.log.Logger;
 import com.dianping.pigeon.log.LoggerLoader;
 import com.dianping.pigeon.remoting.common.codec.Serializer;
 import com.dianping.pigeon.remoting.common.codec.SerializerFactory;
+import com.dianping.pigeon.remoting.common.codec.SerializerType;
 import com.dianping.pigeon.remoting.common.domain.InvocationRequest;
 import com.dianping.pigeon.remoting.common.domain.InvocationResponse;
 import com.dianping.pigeon.remoting.common.util.Constants;
 import com.dianping.pigeon.remoting.http.HttpUtils;
+import com.dianping.pigeon.remoting.http.adapter.HttpAdapter;
+import com.dianping.pigeon.remoting.http.adapter.HttpAdapterFactory;
 import com.dianping.pigeon.remoting.provider.Server;
 import com.dianping.pigeon.remoting.provider.domain.DefaultProviderContext;
 import com.dianping.pigeon.remoting.provider.domain.ProviderContext;
 import com.dianping.pigeon.remoting.provider.util.ProviderUtils;
+import org.apache.commons.lang.StringUtils;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.Future;
 
 public class HttpServerHandler implements HttpHandler {
 

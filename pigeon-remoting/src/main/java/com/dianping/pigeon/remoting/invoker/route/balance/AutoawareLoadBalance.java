@@ -1,13 +1,7 @@
-/**
- * Dianping.com Inc.
- * Copyright (c) 2003-2013 All Rights Reserved.
- */
 package com.dianping.pigeon.remoting.invoker.route.balance;
 
 import java.util.List;
-
 import com.dianping.pigeon.log.Logger;
-
 import com.dianping.pigeon.log.LoggerLoader;
 import com.dianping.pigeon.remoting.common.domain.InvocationRequest;
 import com.dianping.pigeon.remoting.invoker.Client;
@@ -15,11 +9,8 @@ import com.dianping.pigeon.remoting.invoker.config.InvokerConfig;
 import com.dianping.pigeon.remoting.invoker.route.statistics.ServiceStatisticsHolder;
 import com.dianping.pigeon.util.LangUtils;
 
-/**
- * 感知服务端负载情况, 将请求路由到负载较低的服务端
- *
- * @author danson.liu
- */
+//自动负载均衡器
+//感知服务端负载情况, 将请求路由到负载较低的服务端
 public class AutoawareLoadBalance extends AbstractLoadBalance {
 
     private static final Logger logger = LoggerLoader.getLogger(AutoawareLoadBalance.class);

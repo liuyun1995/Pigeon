@@ -1,9 +1,7 @@
 package com.dianping.pigeon.remoting.invoker.route.balance;
 
 import java.util.List;
-
 import com.dianping.pigeon.log.Logger;
-
 import com.dianping.pigeon.log.LoggerLoader;
 import com.dianping.pigeon.remoting.common.domain.InvocationRequest;
 import com.dianping.pigeon.remoting.invoker.Client;
@@ -17,9 +15,6 @@ public class RoundRobinLoadBalance extends AbstractLoadBalance {
 	private static int lastSelected = -1;
 	private static int currentWeight = 0;
 
-	/**
-	 * 
-	 */
 	@Override
 	protected Client doSelect(List<Client> clients, InvokerConfig<?> invokerConfig, InvocationRequest request,
 			int[] weights) {

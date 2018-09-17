@@ -1,15 +1,4 @@
-/**
- * Dianping.com Inc.
- * Copyright (c) 2003-2013 All Rights Reserved.
- */
 package com.dianping.pigeon.remoting.netty.invoker;
-
-import java.util.List;
-
-import com.dianping.pigeon.remoting.invoker.client.ClientConfig;
-import org.jboss.netty.bootstrap.ClientBootstrap;
-import org.jboss.netty.channel.ChannelFuture;
-import org.jboss.netty.channel.ChannelFutureListener;
 
 import com.dianping.pigeon.remoting.common.channel.ChannelFactory;
 import com.dianping.pigeon.remoting.common.domain.InvocationRequest;
@@ -22,13 +11,19 @@ import com.dianping.pigeon.remoting.common.pool.DefaultChannelPool;
 import com.dianping.pigeon.remoting.common.pool.PoolProperties;
 import com.dianping.pigeon.remoting.common.util.Constants;
 import com.dianping.pigeon.remoting.invoker.AbstractClient;
+import com.dianping.pigeon.remoting.invoker.client.ClientConfig;
 import com.dianping.pigeon.remoting.invoker.domain.ConnectInfo;
 import com.dianping.pigeon.remoting.invoker.process.ResponseProcessor;
 import com.dianping.pigeon.remoting.netty.channel.NettyChannel;
 import com.dianping.pigeon.remoting.netty.channel.NettyChannelFactory;
 import com.dianping.pigeon.remoting.provider.util.ProviderUtils;
 import com.dianping.pigeon.util.NetUtils;
+import org.jboss.netty.bootstrap.ClientBootstrap;
+import org.jboss.netty.channel.ChannelFuture;
+import org.jboss.netty.channel.ChannelFutureListener;
+import java.util.List;
 
+//netty客户端
 public class NettyClient extends AbstractClient {
 
     private String protocol = Constants.PROTOCOL_DEFAULT;
@@ -74,8 +69,9 @@ public class NettyClient extends AbstractClient {
     @Override
     public void doOpen() {
         try {
+            //初始化引导程序
             initBootstrap();
-
+            //初始化通道池
             initChannelPool();
             logger.info("[open] client opened. remoteAddress: " + remoteAddressString);
         } catch (Exception e) {
@@ -99,23 +95,24 @@ public class NettyClient extends AbstractClient {
         channelPool = new DefaultChannelPool<NettyChannel>(poolProperties, createChannelFactory());
     }
 
+    //获取客户端引导程序
     public ClientBootstrap getBootstrap() {
         return bootstrap;
     }
 
+    //创建通道工厂
     public ChannelFactory createChannelFactory() {
         return new NettyChannelFactory(this);
     }
 
-
+    //发送请求
     @Override
     public InvocationResponse doWrite(InvocationRequest request) throws NetworkException {
         NettyChannel channel = null;
-
         try {
-
+            //从通道池中获取通道
             channel = channelPool.selectChannel();
-
+            //发送请求
             ChannelFuture future = channel.write0(request);
 
             afterWrite(request, channel);
@@ -150,20 +147,24 @@ public class NettyClient extends AbstractClient {
         }
     }
 
+    //获取所有通道
     @Override
     public List<NettyChannel> getChannels() {
         return channelPool == null ? null : channelPool.getChannels();
     }
 
+    //是否激活
     @Override
     public boolean isActive() {
         return super.isActive() && poolActive();
     }
 
+    //通道池是否激活
     private boolean poolActive() {
         return channelPool != null && channelPool.isAvaliable();
     }
 
+    //获取网络协议
     @Override
     public String getProtocol() {
         return protocol;

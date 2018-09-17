@@ -1,7 +1,3 @@
-/**
- * Dianping.com Inc.
- * Copyright (c) 2003-2013 All Rights Reserved.
- */
 package com.dianping.pigeon.registry.util;
 
 import com.dianping.pigeon.config.ConfigManager;
@@ -45,4 +41,5 @@ public final class Constants {
 	public static final String KEY_WEIGHT_DEFAULT = "pigeon.weight.default";
 	public static final int WEIGHT_ON = 1;
 	public static final int DEFAULT_WEIGHT = configManager.getIntValue(KEY_WEIGHT_DEFAULT, WEIGHT_ON);
+
 }

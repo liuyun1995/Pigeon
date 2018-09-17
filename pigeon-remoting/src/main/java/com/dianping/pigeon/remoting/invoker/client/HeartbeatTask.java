@@ -1,8 +1,5 @@
 package com.dianping.pigeon.remoting.invoker.client;
 
-import java.util.List;
-import java.util.concurrent.atomic.AtomicLong;
-
 import com.dianping.pigeon.log.Logger;
 import com.dianping.pigeon.log.LoggerLoader;
 import com.dianping.pigeon.monitor.Monitor;
@@ -19,11 +16,10 @@ import com.dianping.pigeon.remoting.common.util.InvocationUtils;
 import com.dianping.pigeon.remoting.invoker.Client;
 import com.dianping.pigeon.remoting.invoker.concurrent.CallbackFuture;
 import com.dianping.pigeon.remoting.invoker.util.InvokerUtils;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicLong;
 
-/**
- * @author qi.yin
- *         2016/09/21  下午7:58.
- */
+//心跳检测任务
 public class HeartbeatTask implements Runnable {
 
     private static final Logger logger = LoggerLoader.getLogger(HeartbeatTask.class);

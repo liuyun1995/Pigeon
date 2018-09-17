@@ -1,18 +1,12 @@
-/**
- * Dianping.com Inc.
- * Copyright (c) 2003-2013 All Rights Reserved.
- */
 package com.dianping.pigeon.remoting.invoker.route.balance;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
-
 import com.dianping.pigeon.remoting.invoker.ClientManager;
 import com.dianping.pigeon.remoting.invoker.route.quality.RequestQualityManager;
 import org.apache.commons.lang.StringUtils;
 import com.dianping.pigeon.log.Logger;
-
 import com.dianping.pigeon.config.ConfigManager;
 import com.dianping.pigeon.config.ConfigManagerLoader;
 import com.dianping.pigeon.log.LoggerLoader;
@@ -23,6 +17,7 @@ import com.dianping.pigeon.remoting.invoker.exception.ServiceUnavailableExceptio
 import com.dianping.pigeon.remoting.invoker.route.statistics.ServiceStatisticsHolder;
 import com.dianping.pigeon.remoting.invoker.util.InvokerHelper;
 
+//抽象的负载均衡器
 public abstract class AbstractLoadBalance implements LoadBalance {
 
 	private static final Logger logger = LoggerLoader.getLogger(AbstractLoadBalance.class);
@@ -86,13 +81,7 @@ public abstract class AbstractLoadBalance implements LoadBalance {
 		return selectedClient;
 	}
 
-	/**
-	 * [w1, w2, w3, maxWeightIndex]
-	 *
-	 * @param clients
-	 * @param request
-     * @return
-     */
+	//获取权重数组
 	private int[] getWeights(List<Client> clients, InvocationRequest request) {
 		int clientSize = clients.size();
 		int[] weights = new int[clientSize + 1];

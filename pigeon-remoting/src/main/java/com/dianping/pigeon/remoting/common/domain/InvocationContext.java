@@ -1,15 +1,11 @@
-/**
- * * Dianping.com Inc.
- * * Copyright (c) 2003-2013 All Rights Reserved.
- **/
 package com.dianping.pigeon.remoting.common.domain;
 
+import com.dianping.pigeon.remoting.common.monitor.trace.MonitorData;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
-import com.dianping.pigeon.remoting.common.monitor.trace.MonitorData;
-
+//调用上下文
 public interface InvocationContext<M extends MonitorData> {
 
     InvocationRequest getRequest();
@@ -52,22 +48,21 @@ public interface InvocationContext<M extends MonitorData> {
     void setMonitorData(M monitorData);
 
     enum TimePhase {
-        S/** start **/
-        , R/** receive **/
-        , T/** thread pool **/
-        , D/** degrade **/
-        , Q/** request **/
-        , P/** response **/
-        , O/** monitor **/
-        , C/** context **/
-        , G/** gateway **/
-        , A/** authenticate **/
-        , U/** business **/
-        , M/** method **/
-        , F/** future **/
-        , B/** back **/
-        , E
-        /** end **/
+        S, /** start **/
+        R, /** receive **/
+        T, /** thread pool **/
+        D, /** degrade **/
+        Q, /** request **/
+        P, /** response **/
+        O, /** monitor **/
+        C, /** context **/
+        G, /** gateway **/
+        A, /** authenticate **/
+        U, /** business **/
+        M, /** method **/
+        F, /** future **/
+        B, /** back **/
+        E  /** end **/
     }
 
     public static class TimePoint {

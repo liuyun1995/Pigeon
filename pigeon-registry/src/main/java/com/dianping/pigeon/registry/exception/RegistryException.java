@@ -1,13 +1,6 @@
-/**
- * Dianping.com Inc.
- * Copyright (c) 2003-2013 All Rights Reserved.
- */
 package com.dianping.pigeon.registry.exception;
 
-/**
- * @author danson.liu
- * 
- */
+//注册中心异常
 public class RegistryException extends Exception {
 
 	private static final long serialVersionUID = -277294587317829825L;

@@ -1,13 +1,10 @@
 package com.dianping.pigeon.registry.config;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by chenchongze on 17/1/17.
- */
+//注册中心配置
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class RegistryConfig {
 

@@ -12,7 +12,6 @@ import com.dianping.pigeon.remoting.invoker.Client;
 import com.dianping.pigeon.remoting.invoker.route.quality.RequestQualityManager;
 import com.google.common.collect.Lists;
 import com.dianping.pigeon.log.Logger;
-
 import java.util.*;
 
 /**
