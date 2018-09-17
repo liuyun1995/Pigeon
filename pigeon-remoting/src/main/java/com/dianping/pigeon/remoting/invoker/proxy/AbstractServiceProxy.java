@@ -88,6 +88,7 @@ public abstract class AbstractServiceProxy implements ServiceProxy {
                     } catch (Throwable t) {
                         logger.warn("error while trying to setup service client:" + invokerConfig, t);
                     }
+                    //将调用配置和服务代理对象放入缓存
                     services.put(invokerConfig, service);
                 }
             }

@@ -110,6 +110,7 @@ public class DefaultClusterListener implements ClusterListener {
 
         try {
             if (client.isClosed()) {
+                //打开客户端连接
                 client.open();
             } else {
                 logger.info("client already connected:" + client);

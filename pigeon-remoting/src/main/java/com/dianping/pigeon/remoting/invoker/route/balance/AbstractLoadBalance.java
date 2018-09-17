@@ -38,14 +38,14 @@ public abstract class AbstractLoadBalance implements LoadBalance {
 		String forceAddress = InvokerHelper.getAddress();
 		//若强制指定地址不为空
 		if (StringUtils.isNotBlank(forceAddress)) {
-			// 客户端强制路由
+			//客户端强制路由
 			if (forceAddress.startsWith("localhost") || forceAddress.startsWith("127.0.0.1")) {
 				if (forceAddress.lastIndexOf(":") != -1) {
 					forceAddress = configManager.getLocalIp() + forceAddress.substring(forceAddress.lastIndexOf(":"));
 				}
 			}
 
-			// 拿到未经region或其他策略过滤的client列表
+			//拿到未经region或其他策略过滤的client列表
 			List<Client> allClients = ClientManager.getInstance().getClusterListener().getClientList(invokerConfig);
 			//遍历所有客户端
 			for (Client client : allClients) {

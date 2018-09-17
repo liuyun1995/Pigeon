@@ -94,6 +94,7 @@ public class NettyClient extends AbstractClient {
         this.bootstrap.setOption("writeBufferLowWaterMark", clientConfig.getLowWaterMark());
     }
 
+    //初始化通道池
     private void initChannelPool() throws ChannelPoolException {
         channelPool = new DefaultChannelPool<NettyChannel>(poolProperties, createChannelFactory());
     }

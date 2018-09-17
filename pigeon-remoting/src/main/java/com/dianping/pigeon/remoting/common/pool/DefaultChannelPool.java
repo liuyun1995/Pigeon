@@ -12,7 +12,6 @@ import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
-
 import com.dianping.pigeon.log.Logger;
 import com.dianping.pigeon.log.LoggerLoader;
 import com.dianping.pigeon.remoting.common.channel.Channel;
@@ -21,9 +20,7 @@ import com.dianping.pigeon.remoting.common.exception.NetworkException;
 import com.dianping.pigeon.threadpool.DefaultThreadFactory;
 import com.dianping.pigeon.util.AtomicPositiveInteger;
 
-/**
- * @author qi.yin 2016/09/23 上午10:52.
- */
+//默认通道池
 public class DefaultChannelPool<C extends Channel> implements ChannelPool<C> {
 
     private static final Logger logger = LoggerLoader.getLogger(DefaultChannelPool.class);
@@ -52,10 +49,12 @@ public class DefaultChannelPool<C extends Channel> implements ChannelPool<C> {
 
     private static final ConcurrentMap<Channel, Object> reconnectChannels = new ConcurrentHashMap<Channel, Object>();
 
+    //构造器1
     public DefaultChannelPool(ChannelFactory channelFactory) throws ChannelPoolException {
         this(new PoolProperties(), channelFactory);
     }
 
+    //构造器2
     public DefaultChannelPool(PoolProperties properties, ChannelFactory channelFactory) throws ChannelPoolException {
         if (isClosed.compareAndSet(true, false)) {
             this.properties = properties;
@@ -113,16 +112,17 @@ public class DefaultChannelPool<C extends Channel> implements ChannelPool<C> {
         return pooledChannels.size();
     }
 
+    //是否可用
     @Override
     public boolean isAvaliable() {
+        //若已关闭则返回false
         if (isClosed()) {
             return false;
         }
 
+        //遍历所有通道, 若有一个通道可用则返回true
         for (int index = 0; index < pooledChannels.size(); index++) {
-
             C channel = pooledChannels.get(index);
-
             if (channel != null && channel.isAvaliable()) {
                 return true;
             }

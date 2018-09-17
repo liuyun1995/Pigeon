@@ -7,16 +7,11 @@ import com.dianping.pigeon.util.NetUtils;
 import org.jboss.netty.bootstrap.ClientBootstrap;
 import org.jboss.netty.channel.Channel;
 import org.jboss.netty.channel.ChannelFuture;
-
-import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.ReentrantLock;
 
-/**
- * @author qi.yin
- *         2016/09/23  上午10:31.
- */
+//默认netty通道
 public class DefaultNettyChannel implements NettyChannel {
 
     private static final Logger logger = LoggerLoader.getLogger(NettyChannel.class);

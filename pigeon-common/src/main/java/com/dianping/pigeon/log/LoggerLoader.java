@@ -28,6 +28,7 @@ public class LoggerLoader {
     }
 
     public static Logger getLogger(Class clazz) {
+        //根据全限定名获取日志
         return getLogger(clazz.getName());
     }
 
@@ -35,12 +36,14 @@ public class LoggerLoader {
         return loggerInitializer.getLogger(loggerName);
     }
 
+    //内部日志初始化器
     private static class InnerLoggerInitializer implements LoggerInitializer {
 
         private static Constructor logConstructor;
 
         @Override
         public void init() {
+            //获取日志类型
             String logType = System.getProperty("pigeon.logType");
 
             if (logType != null) {
@@ -59,6 +62,7 @@ public class LoggerLoader {
             tryImplementation("org.apache.logging.log4j.Logger", "com.dianping.pigeon.log.Log4j2Logger");
             tryImplementation("org.slf4j.Logger", "com.dianping.pigeon.log.Slf4jLogger");
 
+            //若构造器为空，则使用简单日志类型
             if (logConstructor == null) {
                 try {
                     logConstructor = SimpleLogger.class.getConstructor(String.class);
@@ -71,6 +75,7 @@ public class LoggerLoader {
         @Override
         public Logger getLogger(String loggerName) {
             try {
+                //使用构造器构造日志对象
                 return (Logger) logConstructor.newInstance(loggerName);
             } catch (Throwable t) {
                 throw new RuntimeException("failed to create logger for " + loggerName + ", cause: " + t, t);
@@ -84,10 +89,13 @@ public class LoggerLoader {
             }
 
             try {
+                //若测试类型名称不为空，则尝试加载该类型
                 if(testClassName != null) {
                     Resources.classForName(testClassName);
                 }
+                //加载实际类型
                 Class implClass = Resources.classForName(implClassName);
+                //获取实际日志类型的构造器
                 logConstructor = implClass.getConstructor(new Class[] {
                         String.class
                 });

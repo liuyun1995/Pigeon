@@ -4,16 +4,9 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.dianping</groupId>
-	<artifactId>pigeon-parent</artifactId>
+	<artifactId>pigeon</artifactId>
 	<packaging>pom</packaging>
-	<version>2.9.12-SNAPSHOT</version>
-
-	<name>pigeon-parent</name>
-	<organization>
-		<name>dianping</name>
-		<url>http://www.dianping.com/</url>
-	</organization>
-	<inceptionYear>2010.08</inceptionYear>
+	<version>0.0.1-SNAPSHOT</version>
 
 	<properties>
 		<!-- Used common package -->
@@ -55,66 +48,6 @@
 		<module>pigeon-extensions</module>
 		<module>pigeon-build</module>
 	</modules>
-
-	<description>pigeon-parent</description>
-	<developers>
-		<developer>
-			<id>saber</id>
-			<name>saber</name>
-			<organization>dianping</organization>
-			<roles>
-				<role>Committer</role>
-			</roles>
-		</developer>
-		<developer>
-			<id>jianhui.huang</id>
-			<name>jianhui.huang</name>
-			<organization>dianping</organization>
-			<roles>
-				<role>Committer</role>
-			</roles>
-		</developer>
-		<developer>
-			<id>hua.chen</id>
-			<name>hua.chen</name>
-			<organization>dianping</organization>
-			<roles>
-				<role>Committer</role>
-			</roles>
-		</developer>
-		<developer>
-			<id>xiang.wu</id>
-			<name>xiang.wu</name>
-			<organization>dianping</organization>
-			<roles>
-				<role>Committer</role>
-			</roles>
-		</developer>
-		<developer>
-			<id>chongze.chen</id>
-			<name>chongze.chen</name>
-			<organization>dianping</organization>
-			<roles>
-				<role>Committer</role>
-			</roles>
-		</developer>
-		<developer>
-			<id>qi.yin</id>
-			<name>qi.yin</name>
-			<organization>dianping</organization>
-			<roles>
-				<role>Committer</role>
-			</roles>
-		</developer>
-		<developer>
-			<id>huasheng.shi</id>
-			<name>huasheng.shi</name>
-			<organization>dianping</organization>
-			<roles>
-				<role>Committer</role>
-			</roles>
-		</developer>
-	</developers>
 
 	<dependencyManagement>
 		<dependencies>

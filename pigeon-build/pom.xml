@@ -3,14 +3,14 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<artifactId>pigeon-parent</artifactId>
+		<artifactId>pigeon</artifactId>
 		<groupId>com.dianping</groupId>
-		<version>2.9.12-SNAPSHOT</version>
+		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 
-	<version>2.9.12-SNAPSHOT</version>
+	<version>0.0.1-SNAPSHOT</version>
 	<groupId>com.dianping</groupId>
-	<artifactId>pigeon</artifactId>
+	<artifactId>pigeon-build</artifactId>
 	<packaging>jar</packaging>
 	<name>pigeon</name>
 

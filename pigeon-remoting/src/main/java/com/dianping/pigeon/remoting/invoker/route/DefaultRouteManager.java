@@ -125,31 +125,21 @@ public class DefaultRouteManager implements RouteManager, Disposable {
         return selectedClient;
     }
 
-    /**
-     * 按照权重、分组、region规则过滤客户端选择，加入对oneway调用模式的优化判断
-     *
-     * @param clientList
-     * @param invokerConfig
-     * @param request
-     * @return
-     */
+    //获取可用机器列表
     public List<Client> getAvailableClients(List<Client> clientList, InvokerConfig<?> invokerConfig,
                                             InvocationRequest request) {
-
         if (regionPolicyManager.isEnableRegionPolicy()) {
-
             clientList = regionPolicyManager.getPreferRegionClients(clientList, invokerConfig, request);
-
         }
-
         List<Client> filteredClients = new ArrayList<Client>(clientList.size());
+        //遍历该服务的所有提供者机器
         for (Client client : clientList) {
             if (client != null) {
-                //获取客户端地址
+                //获取客户端机器地址
                 String address = client.getAddress();
-                //获取客户端权重
+                //从缓存中获取机器权重
                 int weight = RegistryManager.getInstance().getServiceWeightFromCache(address);
-                //如果客户端是活跃的且权重大于0，则添加到集合中
+                //若客户端是活跃的且权重大于0，则添加到过滤集合中
                 if (client.isActive() && weight > 0) {
                     filteredClients.add(client);
                 } else if (logger.isDebugEnabled()) {
@@ -157,7 +147,7 @@ public class DefaultRouteManager implements RouteManager, Disposable {
                 }
             }
         }
-        //若客户端集合为空，则抛出异常
+        //若过滤集合最后为空，则抛出异常
         if (filteredClients.isEmpty()) {
             throw new ServiceUnavailableException("no available server exists for service[" + invokerConfig.getUrl()
                     + "] and group[" + RegistryManager.getInstance().getGroup(invokerConfig.getUrl()) + "].");

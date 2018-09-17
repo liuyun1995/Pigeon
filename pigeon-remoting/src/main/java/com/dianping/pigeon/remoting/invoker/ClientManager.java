@@ -90,7 +90,7 @@ public class ClientManager {
 		registerThreadPool.getExecutor().allowCoreThreadTimeOut(true);
 	}
 
-	//注册客户端
+	//注册客户端(建立连接)
 	public void registerClient(String serviceName, String host, int port, int weight) {
 		//新建连接信息
 		ConnectInfo connectInfo = new ConnectInfo(serviceName, host, port, weight);
@@ -116,6 +116,7 @@ public class ClientManager {
 	public List<Client> getAvailableClients(InvokerConfig<?> invokerConfig, InvocationRequest request) {
 		//获取客户端列表
 		List<Client> clientList = clusterListener.getClientList(invokerConfig);
+		//通过路由管理器获取可用的机器地址
 		return routerManager.getAvailableClients(clientList, invokerConfig, request);
 	}
 
@@ -285,7 +286,7 @@ public class ClientManager {
 				logger.info("", e);
 			}
 		} else {
-			//遍历本次要注册的该服务的所有主机地址信息
+			//遍历本次要注册的该服务的所有机器地址
 			for (final HostInfo hostInfo : addresses) {
 				//调用注册中心事件监听器的providerAdded方法
 				RegistryEventListener.providerAdded(url, hostInfo.getHost(), hostInfo.getPort(), hostInfo.getWeight());
@@ -318,7 +319,7 @@ public class ClientManager {
 				logger.info("add " + event.getHost() + ":" + event.getPort() + ":" + event.getWeight() + " to "
 						+ event.getServiceName());
 			}
-			//注册客户端
+			//注册客户端，同时添加连接信息
 			registerClient(event.getServiceName(), event.getHost(), event.getPort(), event.getWeight());
 		}
 		//移除服务提供者
