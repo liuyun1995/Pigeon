@@ -6,17 +6,12 @@ import java.io.IOException;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 
-/**
- * @author qi.yin
- *         2016/06/05  下午6:02.
- */
+//GZip压缩器
 public class GZipCompress implements Compress {
 
-    /**
-     * default buffer size
-     */
     private static final int BUFFER_SIZE = 256;
 
+    //压缩方法
     public byte[] compress(byte[] array) throws IOException {
         if (array == null) {
             return null;
@@ -39,6 +34,7 @@ public class GZipCompress implements Compress {
         return out.toByteArray();
     }
 
+    //解压方法
     public byte[] unCompress(byte[] array) throws IOException {
         if (array == null) {
             return null;

@@ -1,11 +1,11 @@
 package com.dianping.pigeon.console.status.checker;
 
 import java.util.Map;
-
 import com.dianping.pigeon.registry.RegistryManager;
 import com.dianping.pigeon.remoting.provider.publish.ServicePublisher;
 import com.dianping.pigeon.util.CollectionUtils;
 
+//全局状态检查器
 public class GlobalStatusChecker {
 
 	public static boolean isOnline() {

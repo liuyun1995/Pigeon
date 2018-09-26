@@ -1,10 +1,9 @@
 
 package com.dianping.pigeon.console.domain;
 
-/**
- * Created by shihuashen on 16/10/25.
- */
+//服务路径
 public class ServicePath {
+
     private String service;
     private String group;
     private String path;

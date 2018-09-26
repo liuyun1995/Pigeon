@@ -23,6 +23,7 @@ public class ConfigManagerLoader {
 		initLoggerConfig();
 	}
 
+	//初始化日志配置
 	private static void initLoggerConfig() {
 		try {
 			Log4j2Logger.setDebugEnabled(configManager.getBooleanValue(KEY_LOG_DEBUG_ENABLE, false));

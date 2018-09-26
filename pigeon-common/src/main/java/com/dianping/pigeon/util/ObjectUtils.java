@@ -3,10 +3,7 @@ package com.dianping.pigeon.util;
 import java.util.Arrays;
 import java.util.Comparator;
 
-/**
- * @author qi.yin
- *         2016/05/23  下午4:41.
- */
+//对象工具类
 public class ObjectUtils {
 
     public static boolean equals(Object a, Object b) {

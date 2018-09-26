@@ -1,17 +1,11 @@
-/**
- * 
- */
 package com.dianping.pigeon.console.servlet;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import com.dianping.pigeon.log.Logger;
-
 import com.dianping.pigeon.config.ConfigManagerLoader;
 import com.dianping.pigeon.console.Utils;
 import com.dianping.pigeon.log.LoggerLoader;
@@ -24,9 +18,6 @@ public class ServiceUnpublishServlet extends HttpServlet {
 
 	protected final Logger logger = LoggerLoader.getLogger(this.getClass());
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	private static final boolean autoUnpublish = ConfigManagerLoader.getConfigManager().getBooleanValue(

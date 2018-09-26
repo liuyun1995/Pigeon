@@ -4,8 +4,7 @@ import com.dianping.pigeon.log.Logger;
 import com.dianping.pigeon.log.LoggerLoader;
 import com.dianping.pigeon.registry.RegistryManager;
 import com.dianping.pigeon.registry.config.RegistryConfig;
-import com.dianping.pigeon.registry.exception.RegistryException;
-import com.dianping.pigeon.registry.listener.*;
+import com.dianping.pigeon.registry.listener.RegistryNotifyListenerLoader;
 import com.dianping.pigeon.registry.util.Constants;
 import com.dianping.pigeon.registry.util.HeartBeatSupport;
 import com.dianping.pigeon.util.VersionUtils;
@@ -16,7 +15,6 @@ import org.apache.curator.framework.api.CuratorListener;
 import org.apache.zookeeper.KeeperException;
 import org.apache.zookeeper.WatchedEvent;
 import org.apache.zookeeper.Watcher.Event.EventType;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

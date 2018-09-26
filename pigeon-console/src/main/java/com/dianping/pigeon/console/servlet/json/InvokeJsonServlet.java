@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.dianping.pigeon.console.servlet.json;
 
 import java.io.IOException;
@@ -8,14 +5,11 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.apache.commons.lang.SerializationException;
 import org.apache.commons.lang.StringUtils;
-
 import com.dianping.pigeon.config.ConfigManager;
 import com.dianping.pigeon.config.ConfigManagerLoader;
 import com.dianping.pigeon.console.Utils;

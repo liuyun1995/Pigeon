@@ -23,6 +23,7 @@ public class PropertiesFileConfigManager extends AbstractConfigManager {
 	private String group = null;
 	private String ip = null;
 
+	//初始方法
 	public void init() {
 		Map<String, Object> config = new HashMap<String, Object>();
 		try {

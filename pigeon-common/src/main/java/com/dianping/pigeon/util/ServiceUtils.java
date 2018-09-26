@@ -2,9 +2,7 @@ package com.dianping.pigeon.util;
 
 import org.apache.commons.lang.StringUtils;
 
-/**
- * Created by chenchongze on 16/4/15.
- */
+//服务工具类
 public class ServiceUtils {
 
     public static String getServiceId(String serviceName, String suffix) {
@@ -14,4 +12,5 @@ public class ServiceUtils {
         }
         return serviceId;
     }
+
 }

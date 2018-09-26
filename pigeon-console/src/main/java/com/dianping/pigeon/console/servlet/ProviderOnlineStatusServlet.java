@@ -1,7 +1,6 @@
 package com.dianping.pigeon.console.servlet;
 
 import com.dianping.pigeon.console.status.checker.GlobalStatusChecker;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -20,4 +19,5 @@ public class ProviderOnlineStatusServlet extends HttpServlet {
         PrintWriter writer = response.getWriter();
         writer.write("" + GlobalStatusChecker.isOnline());
     }
+
 }

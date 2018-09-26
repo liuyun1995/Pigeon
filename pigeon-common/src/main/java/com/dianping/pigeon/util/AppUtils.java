@@ -1,11 +1,6 @@
-/**
- * Dianping.com Inc.
- * Copyright (c) 2003-2013 All Rights Reserved.
- */
 package com.dianping.pigeon.util;
 
 import org.apache.commons.lang.StringUtils;
-
 import java.io.File;
 import java.net.URL;
 import java.util.Properties;

@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
 import com.dianping.pigeon.console.domain.Service;
 import com.dianping.pigeon.domain.HostInfo;
 import com.dianping.pigeon.remoting.invoker.Client;
 
 public class ServicePage {
+
 	private String startTime = "";
 
 	private String appName = "";

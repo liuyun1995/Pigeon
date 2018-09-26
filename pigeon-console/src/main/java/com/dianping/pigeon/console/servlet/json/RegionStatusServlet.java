@@ -4,13 +4,9 @@ import com.dianping.pigeon.console.domain.RegionStatus;
 import com.dianping.pigeon.console.servlet.ServiceServlet;
 import com.dianping.pigeon.remoting.invoker.route.region.RegionPolicyManager;
 import com.dianping.pigeon.remoting.provider.config.ServerConfig;
-import com.google.common.collect.Maps;
-
-import javax.servlet.Servlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Map;
 
 /**
  * Created by chenchongze on 16/4/1.

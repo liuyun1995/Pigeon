@@ -1,7 +1,3 @@
-/**
- * Dianping.com Inc.
- * Copyright (c) 2003-2013 All Rights Reserved.
- */
 package com.dianping.pigeon.extension;
 
 import java.util.ArrayList;
@@ -10,20 +6,14 @@ import java.util.Map;
 import java.util.ServiceLoader;
 import java.util.concurrent.ConcurrentHashMap;
 
-/**
- * 
- * @author xiangwu
- * @Sep 11, 2013
- * 
- */
+//拓展类加载器
 public final class ExtensionLoader {
 
 	private static Map<Class<?>, Object> extensionMap = new ConcurrentHashMap<Class<?>, Object>();
 
 	private static Map<Class<?>, List<?>> extensionListMap = new ConcurrentHashMap<Class<?>, List<?>>();
 
-	private ExtensionLoader() {
-	}
+	private ExtensionLoader() {}
 
 	public static <T> T getExtension(Class<T> clazz) {
 		T extension = (T) extensionMap.get(clazz);

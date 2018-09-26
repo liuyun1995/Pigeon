@@ -2,12 +2,9 @@ package com.dianping.pigeon.threadpool;
 
 import com.dianping.pigeon.log.Logger;
 import com.dianping.pigeon.log.LoggerLoader;
-
 import java.util.concurrent.*;
 
-/**
- * Created by chenchongze on 16/12/10.
- */
+//动态线程池
 public class DynamicThreadPool implements ThreadPool, ExecutorAware {
 
     private static final Logger logger = LoggerLoader.getLogger(DynamicThreadPool.class);

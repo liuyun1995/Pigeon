@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.dianping.pigeon.console.servlet;
 
 import java.io.IOException;
@@ -12,15 +9,12 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.apache.commons.lang.StringUtils;
 import org.springframework.aop.support.AopUtils;
-
 import com.dianping.pigeon.config.ConfigManager;
 import com.dianping.pigeon.config.ConfigManagerLoader;
 import com.dianping.pigeon.console.Utils;
@@ -41,18 +35,14 @@ import com.dianping.pigeon.remoting.provider.config.ProviderConfig;
 import com.dianping.pigeon.remoting.provider.config.ServerConfig;
 import com.dianping.pigeon.remoting.provider.publish.ServicePublisher;
 import com.dianping.pigeon.util.RandomUtils;
-
 import freemarker.cache.ClassTemplateLoader;
 import freemarker.template.Configuration;
 import freemarker.template.DefaultObjectWrapper;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
-/**
- * @author sean.wang
- * @since Jul 16, 2012
- */
 public class ServiceServlet extends HttpServlet {
+
 	private static final long serialVersionUID = -2703014417332812558L;
 
 	private Set<String> ingoreMethods = new HashSet<String>();

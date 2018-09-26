@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.dianping.pigeon.console.servlet.json;
 
 import java.io.IOException;
@@ -9,10 +6,8 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import com.dianping.pigeon.console.servlet.ServicePage;
 import com.dianping.pigeon.console.servlet.ServicePage.ClientInfo;
 import com.dianping.pigeon.console.servlet.ServiceServlet;

@@ -1,12 +1,10 @@
 package com.dianping.pigeon.console.domain;
 
-
 import java.util.List;
 
-/**
- * Created by shihuashen on 16/10/24.
- */
+//服务路径
 public class ServicePaths {
+
     private List<ServicePath> providerPaths;
     private List<ServicePath> invokerPaths;
 

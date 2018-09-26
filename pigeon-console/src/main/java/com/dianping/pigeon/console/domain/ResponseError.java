@@ -1,11 +1,8 @@
-/**
- * Dianping.com Inc.
- * Copyright (c) 2003-2013 All Rights Reserved.
- */
 package com.dianping.pigeon.console.domain;
 
 import org.apache.commons.lang.exception.ExceptionUtils;
 
+//响应错误
 public class ResponseError {
 
 	private transient int status;

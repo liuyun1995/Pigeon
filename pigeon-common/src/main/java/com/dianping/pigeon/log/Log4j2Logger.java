@@ -1,10 +1,8 @@
 package com.dianping.pigeon.log;
 
 import com.dianping.pigeon.util.AppUtils;
-import org.apache.commons.lang.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.spi.LoggerContext;
-
 import java.net.URL;
 
 public class Log4j2Logger implements Logger {

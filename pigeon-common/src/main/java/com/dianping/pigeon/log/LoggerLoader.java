@@ -2,9 +2,9 @@ package com.dianping.pigeon.log;
 
 import com.dianping.pigeon.extension.ExtensionLoader;
 import org.apache.commons.lang.StringUtils;
-
 import java.lang.reflect.Constructor;
 
+//日志类加载器
 public class LoggerLoader {
 
     private static final String LOG_ROOT_KEY = "pigeon.log.dir";

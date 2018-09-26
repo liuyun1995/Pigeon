@@ -4,12 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Service {
+
 	private String name;
-
 	private Class<?> type;
-
 	private String published;
-
 	private String token = "";
 
 	private List<ServiceMethod> methods = new ArrayList<ServiceMethod>();

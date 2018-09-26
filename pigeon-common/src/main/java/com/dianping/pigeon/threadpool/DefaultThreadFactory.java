@@ -1,19 +1,9 @@
-/**
- * Dianping.com Inc.
- * Copyright (c) 2003-2013 All Rights Reserved.
- */
 package com.dianping.pigeon.threadpool;
 
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.atomic.AtomicInteger;
 
-/**
- * 
- * 
- * @author jianhuihuang
- * @version $Id: DefaultThreadFactory.java, v 0.1 2013-6-29 下午6:06:42
- *          jianhuihuang Exp $
- */
+//默认线程工厂
 public class DefaultThreadFactory implements ThreadFactory {
 
 	static final AtomicInteger poolNumber = new AtomicInteger(1);

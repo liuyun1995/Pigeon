@@ -1,20 +1,17 @@
 package com.dianping.pigeon.registry.zookeeper;
 
+import com.dianping.pigeon.log.Logger;
+import com.dianping.pigeon.log.LoggerLoader;
+import com.dianping.pigeon.registry.config.RegistryConfig;
+import com.dianping.pigeon.registry.util.Constants;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.commons.lang.StringUtils;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
-
-import com.dianping.pigeon.registry.config.RegistryConfig;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.commons.lang.StringUtils;
-import com.dianping.pigeon.log.Logger;
-
-import com.dianping.pigeon.log.LoggerLoader;
-import com.dianping.pigeon.registry.util.Constants;
 
 public class Utils {
 

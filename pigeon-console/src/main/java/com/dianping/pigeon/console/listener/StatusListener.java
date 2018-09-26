@@ -2,11 +2,11 @@ package com.dianping.pigeon.console.listener;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import com.dianping.pigeon.console.status.StatusInfo;
 import com.dianping.pigeon.extension.ExtensionLoader;
 import com.dianping.pigeon.util.CollectionUtils;
 
+//状态监听器
 public class StatusListener {
 
 	private static List<StatusInfo> statusList = new ArrayList<StatusInfo>();

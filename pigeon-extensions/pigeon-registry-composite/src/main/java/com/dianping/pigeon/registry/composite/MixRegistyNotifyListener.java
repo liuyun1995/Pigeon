@@ -11,7 +11,6 @@ import com.dianping.pigeon.registry.listener.RegistryEventListener;
 import com.dianping.pigeon.registry.listener.RegistryNotifyListener;
 import com.dianping.pigeon.registry.listener.ServiceChangeListener;
 import com.dianping.pigeon.registry.util.Constants;
-
 import java.util.List;
 import java.util.Map;
 

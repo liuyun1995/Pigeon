@@ -2,20 +2,16 @@ package com.dianping.pigeon.console.domain;
 
 import java.io.Serializable;
 
+//服务方法
 public class ServiceMethod implements Serializable {
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 5762333205567884762L;
 
-	private String name;
+	private String name;                  //方法名
+	private Class<?>[] parameterTypes;    //参数类型
+	private Class<?> returnType;          //返回类型
 
-	private Class<?>[] parameterTypes;
-
-	private Class<?> returnType;
-
-	public ServiceMethod() {
-	}
+	public ServiceMethod() {}
 
 	public ServiceMethod(String name, Class<?>[] parameterTypes, Class<?> returnType) {
 		this.name = name;

@@ -1,12 +1,9 @@
-/**
- * Dianping.com Inc.
- * Copyright (c) 2003-2013 All Rights Reserved.
- */
 package com.dianping.pigeon.container;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+//Spring容器
 public final class SpringContainer {
 
 	private String DEFAULT_SPRING_CONFIG = "classpath*:META-INF/spring/*.xml";

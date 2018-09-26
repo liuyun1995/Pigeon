@@ -23,9 +23,6 @@ public class ServiceOfflineServlet extends HttpServlet {
 
 	protected final Logger logger = LoggerLoader.getLogger(this.getClass());
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	public ServiceOfflineServlet(ServerConfig serverConfig, int port) {

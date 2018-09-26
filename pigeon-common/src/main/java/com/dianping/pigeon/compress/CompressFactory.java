@@ -1,18 +1,13 @@
 package com.dianping.pigeon.compress;
 
-/**
- * @author qi.yin
- *         2016/09/30  上午9:39.
- */
+//压缩器工厂
 public class CompressFactory {
 
     private static Compress gzipCompress = new GZipCompress();
 
     private static Compress snappyCompress = new SnappyCompress();
 
-    private CompressFactory() {
-
-    }
+    private CompressFactory() {}
 
     public static Compress getGZipCompress() {
         return gzipCompress;

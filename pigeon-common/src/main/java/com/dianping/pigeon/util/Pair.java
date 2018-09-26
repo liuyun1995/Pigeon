@@ -1,17 +1,12 @@
 package com.dianping.pigeon.util;
 
-/**
- * @author qi.yin
- *         2016/11/22  下午7:13.
- */
+//一对
 public class Pair<K, V> {
-    private K key;
 
+    private K key;
     private V value;
 
-    public Pair() {
-
-    }
+    public Pair() {}
 
     public Pair(K key, V value) {
         this.key = key;

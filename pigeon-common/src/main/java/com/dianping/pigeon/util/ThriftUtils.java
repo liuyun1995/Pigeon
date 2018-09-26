@@ -4,14 +4,10 @@ import com.dianping.pigeon.log.LoggerLoader;
 import com.facebook.swift.codec.metadata.ReflectionHelper;
 import com.facebook.swift.service.ThriftService;
 import com.dianping.pigeon.log.Logger;
-
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * @author qi.yin
- *         2016/05/16  下午3:12.
- */
+//Thrift工具类
 public class ThriftUtils {
 
     private static final Logger logger = LoggerLoader.getLogger(ThriftUtils.class);

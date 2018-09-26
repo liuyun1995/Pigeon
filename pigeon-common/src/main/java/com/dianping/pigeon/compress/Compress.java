@@ -2,24 +2,13 @@ package com.dianping.pigeon.compress;
 
 import java.io.IOException;
 
-/**
- * @author qi.yin
- *         2016/06/05  下午5:56.
- */
+//压缩器
 public interface Compress {
-    /**
-     * 压缩
-     *
-     * @param buf
-     * @return
-     */
+
+    //压缩
     byte[] compress(byte[] buf) throws IOException;
 
-    /**
-     * 解压缩
-     *
-     * @param buf
-     * @return
-     */
+    //解压缩
     byte[] unCompress(byte[] buf) throws IOException;
+
 }

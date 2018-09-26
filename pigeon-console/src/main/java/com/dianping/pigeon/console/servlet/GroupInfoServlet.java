@@ -2,7 +2,6 @@ package com.dianping.pigeon.console.servlet;
 
 import com.dianping.pigeon.registry.RegistryManager;
 import com.dianping.pigeon.remoting.provider.config.ServerConfig;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;

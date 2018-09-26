@@ -13,11 +13,10 @@ import java.util.concurrent.SynchronousQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.ThreadPoolExecutor.AbortPolicy;
 import java.util.concurrent.TimeUnit;
-
 import com.dianping.pigeon.log.Logger;
-
 import com.dianping.pigeon.log.LoggerLoader;
 
+//默认线程池
 public class DefaultThreadPool implements ThreadPool {
 
 	private static final Logger logger = LoggerLoader.getLogger(DefaultThreadPool.class);

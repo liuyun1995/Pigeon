@@ -1,5 +1,6 @@
 package com.dianping.pigeon.util;
 
+//版本工具类
 public class VersionUtils {
 
 	public static final String VERSION = "2.9.12-SNAPSHOT";

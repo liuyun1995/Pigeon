@@ -1,7 +1,6 @@
 package com.dianping.pigeon.console.domain;
 
 import com.dianping.pigeon.remoting.invoker.route.quality.RequestQualityManager;
-
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 

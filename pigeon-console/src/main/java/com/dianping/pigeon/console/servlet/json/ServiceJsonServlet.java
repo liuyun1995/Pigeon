@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.dianping.pigeon.console.servlet.json;
 
 import com.dianping.pigeon.console.servlet.ServiceServlet;

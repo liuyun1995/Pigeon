@@ -5,7 +5,6 @@
 package com.dianping.pigeon.console;
 
 import java.net.URL;
-
 import com.dianping.pigeon.console.servlet.*;
 import com.dianping.pigeon.console.servlet.json.*;
 import com.dianping.pigeon.log.Logger;
@@ -13,7 +12,6 @@ import org.mortbay.jetty.Server;
 import org.mortbay.jetty.servlet.Context;
 import org.mortbay.jetty.servlet.DefaultServlet;
 import org.mortbay.jetty.servlet.ServletHolder;
-
 import com.dianping.pigeon.log.LoggerLoader;
 import com.dianping.pigeon.remoting.http.provider.JettyHttpServerProcessor;
 import com.dianping.pigeon.remoting.provider.config.ServerConfig;
